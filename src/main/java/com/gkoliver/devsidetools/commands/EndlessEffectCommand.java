@@ -2,8 +2,6 @@ package com.gkoliver.devsidetools.commands;
 
 import java.util.Collection;
 
-import javax.annotation.Nullable;
-import com.google.common.collect.ImmutableList;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
@@ -23,9 +21,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 public class EndlessEffectCommand {
 	//Comment
 	private static final SimpleCommandExceptionType GIVE_FAILED_EXCEPTION = new SimpleCommandExceptionType(new TranslationTextComponent("commands.effect.give.failed"));
-    private static final SimpleCommandExceptionType CLEAR_EVERYTHING_FAILED_EXCEPTION = new SimpleCommandExceptionType(new TranslationTextComponent("commands.effect.clear.everything.failed"));
-    private static final SimpleCommandExceptionType CLEAR_SPECIFIC_FAILED_EXCEPTION = new SimpleCommandExceptionType(new TranslationTextComponent("commands.effect.clear.specific.failed"));
-	public static void register(CommandDispatcher<CommandSource> dispatcher) {
+    public static void register(CommandDispatcher<CommandSource> dispatcher) {
 	      dispatcher.register(Commands.literal("effectinfinity").requires((p_198359_0_) -> {
 	         return p_198359_0_.hasPermissionLevel(2);
 	      }).then(Commands.argument("targets", EntityArgument.entities()).executes((context)->{
@@ -71,50 +67,6 @@ public class EndlessEffectCommand {
 	            source.sendFeedback(new TranslationTextComponent("commands.effect.give.success.single", effect.getDisplayName(), targets.iterator().next().getDisplayName(), j / 20), true);
 	         } else {
 	            source.sendFeedback(new TranslationTextComponent("commands.effect.give.success.multiple", effect.getDisplayName(), targets.size(), j / 20), true);
-	         }
-
-	         return i;
-	      }
-	   }
-
-	   private static int clearAllEffects(CommandSource source, Collection<? extends Entity> targets) throws CommandSyntaxException {
-	      int i = 0;
-
-	      for(Entity entity : targets) {
-	         if (entity instanceof LivingEntity && ((LivingEntity)entity).clearActivePotions()) {
-	            ++i;
-	         }
-	      }
-
-	      if (i == 0) {
-	         throw CLEAR_EVERYTHING_FAILED_EXCEPTION.create();
-	      } else {
-	         if (targets.size() == 1) {
-	            source.sendFeedback(new TranslationTextComponent("commands.effect.clear.everything.success.single", targets.iterator().next().getDisplayName()), true);
-	         } else {
-	            source.sendFeedback(new TranslationTextComponent("commands.effect.clear.everything.success.multiple", targets.size()), true);
-	         }
-
-	         return i;
-	      }
-	   }
-
-	   private static int clearEffect(CommandSource source, Collection<? extends Entity> targets, Effect effect) throws CommandSyntaxException {
-	      int i = 0;
-
-	      for(Entity entity : targets) {
-	         if (entity instanceof LivingEntity && ((LivingEntity)entity).removePotionEffect(effect)) {
-	            ++i;
-	         }
-	      }
-
-	      if (i == 0) {
-	         throw CLEAR_SPECIFIC_FAILED_EXCEPTION.create();
-	      } else {
-	         if (targets.size() == 1) {
-	            source.sendFeedback(new TranslationTextComponent("commands.effect.clear.specific.success.single", effect.getDisplayName(), targets.iterator().next().getDisplayName()), true);
-	         } else {
-	            source.sendFeedback(new TranslationTextComponent("commands.effect.clear.specific.success.multiple", effect.getDisplayName(), targets.size()), true);
 	         }
 
 	         return i;

@@ -16,11 +16,15 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.gkoliver.devsidetools.commands.AggravateCommand;
 import com.gkoliver.devsidetools.commands.EnchantNLCommand;
 import com.gkoliver.devsidetools.commands.EndlessEffectCommand;
+import com.gkoliver.devsidetools.commands.GetColorCodeCommand;
 import com.gkoliver.devsidetools.commands.GetPotionIDCommand;
 import com.gkoliver.devsidetools.commands.NameCommands;
+import com.gkoliver.devsidetools.commands.PlayerHealCommands;
 import com.gkoliver.devsidetools.commands.PotionCommands;
+import com.gkoliver.devsidetools.commands.SetCountCommand;
 import com.gkoliver.devsidetools.commands.UnbreakableCommand;
 
 import java.util.stream.Collectors;
@@ -54,5 +58,11 @@ public class DevsideTools
 	   PotionCommands.PotionCommand.register(event.getCommandDispatcher());
 	   PotionCommands.LingeringPotionCommand.register(event.getCommandDispatcher());
 	   PotionCommands.SplashPotionCommand.register(event.getCommandDispatcher());
+	   AggravateCommand.register(event.getCommandDispatcher());
+	   SetCountCommand.register(event.getCommandDispatcher());
+	   PlayerHealCommands.HealCommand.register(event.getCommandDispatcher());
+	   PlayerHealCommands.HungerCommand.register(event.getCommandDispatcher());
+	   PlayerHealCommands.SaturateCommand.register(event.getCommandDispatcher());
+	   GetColorCodeCommand.register(event.getCommandDispatcher());
    }
 }

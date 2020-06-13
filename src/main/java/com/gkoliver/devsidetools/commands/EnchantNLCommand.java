@@ -5,7 +5,6 @@ import java.util.Collection;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.brigadier.exceptions.Dynamic2CommandExceptionType;
 import com.mojang.brigadier.exceptions.DynamicCommandExceptionType;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 
@@ -29,9 +28,6 @@ public class EnchantNLCommand {
 	   private static final DynamicCommandExceptionType ITEMLESS_EXCEPTION = new DynamicCommandExceptionType((p_208835_0_) -> {
 	      return new TranslationTextComponent("commands.enchant.failed.itemless", p_208835_0_);
 	   });
-	   private static final Dynamic2CommandExceptionType INVALID_LEVEL = new Dynamic2CommandExceptionType((p_208840_0_, p_208840_1_) -> {
-	      return new TranslationTextComponent("commands.enchant.failed.level", p_208840_0_, p_208840_1_);
-	   });
 	   private static final SimpleCommandExceptionType FAILED_EXCEPTION = new SimpleCommandExceptionType(new TranslationTextComponent("commands.enchant.failed"));
 
 	   public static void register(CommandDispatcher<CommandSource> dispatcher) {
@@ -43,7 +39,8 @@ public class EnchantNLCommand {
 	         return enchant(cmdsource.getSource(), EntityArgument.getEntities(cmdsource, "targets"), EnchantmentArgument.getEnchantment(cmdsource, "enchantment"), IntegerArgumentType.getInteger(cmdsource, "level"));
 	      })))));
 	   }
-	   public static void addEnchantment(ItemStack stack, Enchantment ench, int level) {
+	   @SuppressWarnings("deprecation")
+	public static void addEnchantment(ItemStack stack, Enchantment ench, int level) {
 		      stack.getOrCreateTag();
 		      if (!stack.getTag().contains("Enchantments", 9)) {
 		    	  stack.getTag().put("Enchantments", new ListNBT());
