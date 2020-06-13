@@ -1,4 +1,4 @@
-package com.gkoliver.devsidetools.commands;
+package com.gkoliver.devsidetools.common.commands;
 
 import java.util.Collection;
 
@@ -21,30 +21,6 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class NameCommands {
-	public static class NameCommand {
-		public static void register(CommandDispatcher<CommandSource> dispatcher) {
-			dispatcher.register(Commands.literal("name").requires((p_198820_0_) -> {
-		         return p_198820_0_.hasPermissionLevel(2);
-		      }).then(Commands.argument("targets", EntityArgument.entities()))
-				.then(Commands.argument("message", MessageArgument.message()).executes((cmd)->{
-					System.out.println("FIRING MESSAGe");
-					
-					return nameItem(cmd, EntityArgument.getEntities(cmd, "targets"), MessageArgument.getMessage(cmd, "message"));
-				})));
-		}
-		public static int nameItem(CommandContext<CommandSource> source, Collection<? extends Entity> targets, ITextComponent component) {
-			for (Entity entity : targets) {
-				if (entity instanceof LivingEntity) {
-					LivingEntity livingEntity = (LivingEntity) entity;
-					ItemStack stack = livingEntity.getHeldItemMainhand();
-					if (!stack.isEmpty()) {
-						stack.setDisplayName(component);
-					}
-				}
-			}
-			return 1;
-		}
-	}
 	public static class NameRawCommands {
 		public static void register(CommandDispatcher<CommandSource> dispatcher) {
 			dispatcher.register(Commands.literal("nameraw").requires((p_198820_0_) -> {
@@ -63,35 +39,6 @@ public class NameCommands {
 					if (!stack.isEmpty()) {
 						stack.setDisplayName(component);
 						source.getSource().sendFeedback(new TranslationTextComponent("commands.name"), true);
-					}
-				}
-			}
-			return 1;
-		}
-	}
-	public static class LoreCommand {
-		public static void register(CommandDispatcher<CommandSource> dispatcher) {
-			dispatcher.register(Commands.literal("lore").requires((p_198820_0_) -> {
-		         return p_198820_0_.hasPermissionLevel(2);
-		      }).then(Commands.argument("target", EntityArgument.players()).executes((context)->{
-		    	  return nameItem(context, EntityArgument.getPlayers(context, "target"), new StringTextComponent("null"));
-		      }))
-				.then(Commands.argument("message", MessageArgument.message()).executes((cmd)->{
-					return nameItem(cmd, EntityArgument.getPlayers(cmd, "target"), MessageArgument.getMessage(cmd, "message"));
-				})));
-		}
-		public static int nameItem(CommandContext<CommandSource> source, Collection<? extends Entity> targets, ITextComponent component) {
-			for (Entity entity : targets) {
-				if (entity instanceof LivingEntity) {
-					LivingEntity livingEntity = (LivingEntity) entity;
-					ItemStack stack = livingEntity.getHeldItemMainhand();
-					if (!stack.isEmpty()) {
-						ListNBT list = new ListNBT();
-						list.add(StringNBT.valueOf(component.getFormattedText()));
-						CompoundNBT nbt = stack.getOrCreateChildTag("display");
-						nbt.put("Lore",list);
-						
-;
 					}
 				}
 			}

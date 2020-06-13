@@ -6,6 +6,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -16,16 +18,16 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.gkoliver.devsidetools.commands.AggravateCommand;
-import com.gkoliver.devsidetools.commands.EnchantNLCommand;
-import com.gkoliver.devsidetools.commands.EndlessEffectCommand;
-import com.gkoliver.devsidetools.commands.GetColorCodeCommand;
-import com.gkoliver.devsidetools.commands.GetPotionIDCommand;
-import com.gkoliver.devsidetools.commands.NameCommands;
-import com.gkoliver.devsidetools.commands.PlayerHealCommands;
-import com.gkoliver.devsidetools.commands.PotionCommands;
-import com.gkoliver.devsidetools.commands.SetCountCommand;
-import com.gkoliver.devsidetools.commands.UnbreakableCommand;
+import com.gkoliver.devsidetools.common.commands.AggravateCommand;
+import com.gkoliver.devsidetools.common.commands.EnchantNLCommand;
+import com.gkoliver.devsidetools.common.commands.EndlessEffectCommand;
+import com.gkoliver.devsidetools.common.commands.GetColorCodeCommand;
+import com.gkoliver.devsidetools.common.commands.GetPotionIDCommand;
+import com.gkoliver.devsidetools.common.commands.NameCommands;
+import com.gkoliver.devsidetools.common.commands.PlayerHealCommands;
+import com.gkoliver.devsidetools.common.commands.PotionCommands;
+import com.gkoliver.devsidetools.common.commands.SetCountCommand;
+import com.gkoliver.devsidetools.common.commands.UnbreakableCommand;
 
 import java.util.stream.Collectors;
 
@@ -36,9 +38,11 @@ public class DevsideTools
 {
 	public static final String MODID = "devsidetools";
     private static final Logger LOGGER = LogManager.getLogger();
-
+    public static boolean swampExpansion = false;
     public DevsideTools() {
-        
+    	if (ModList.get().isLoaded("swampexpansion")) {
+    		this.swampExpansion = true;
+    	}
     }
     @SubscribeEvent
     public static void setup(final FMLCommonSetupEvent event)

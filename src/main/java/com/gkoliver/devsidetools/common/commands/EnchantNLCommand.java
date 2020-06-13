@@ -1,4 +1,4 @@
-package com.gkoliver.devsidetools.commands;
+package com.gkoliver.devsidetools.common.commands;
 
 import java.util.Collection;
 

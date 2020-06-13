@@ -1,4 +1,4 @@
-package com.gkoliver.devsidetools.commands;
+package com.gkoliver.devsidetools.common.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;

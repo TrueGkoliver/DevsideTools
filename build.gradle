@@ -8,13 +8,15 @@ buildscript {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
     }
 }
+plugins {
+	id "com.wynprice.cursemaven" version "2.1.1"
+}
 apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
-
 version = '1.0'
-group = 'com.gkoliver.defsidetools' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = 'com.gkoliver.devsidetools' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'devsidetools'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
@@ -104,7 +106,8 @@ dependencies {
 
     // These dependencies get remapped to your current MCP mappings
     // deobf 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-
+	compile fg.deobf("curse.maven:abnormals-core:2957837")
+	compile fg.deobf("curse.maven:swamp-expansion:2958029")
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
