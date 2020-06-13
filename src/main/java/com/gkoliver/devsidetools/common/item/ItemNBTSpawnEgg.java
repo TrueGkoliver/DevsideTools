@@ -5,6 +5,7 @@ import java.util.Objects;
 import javax.annotation.Nullable;
 
 import com.farcr.swampexpansion.core.registry.SwampExEntities;
+import com.gkoliver.devsidetools.core.registry.DevsideToolsItems;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -43,9 +44,10 @@ public class ItemNBTSpawnEgg extends Item {
 	public ItemNBTSpawnEgg(EntityType<?> typeIn, int primaryColorIn, int secondaryColorIn, Properties builder, CompoundNBT nbt) {
 		super(builder);
 		this.typeIn = typeIn;
-      this.primaryColor = primaryColorIn;
-      this.secondaryColor = secondaryColorIn;
+		this.primaryColor = primaryColorIn;
+		this.secondaryColor = secondaryColorIn;
 		this.nbt = nbt;
+		DevsideToolsItems.NBT_SPAWN_EGGS.add(this);
 	}
 	
 	public boolean isSlabber = false;

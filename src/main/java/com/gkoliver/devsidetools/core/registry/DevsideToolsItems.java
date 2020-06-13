@@ -14,7 +14,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class DevsideToolsBlocks {
+public class DevsideToolsItems {
 	public static RegistryObject<ItemNBTSpawnEgg> genSlabEgg(int id, int colorbase, int colorsides) {
 		if (DevsideTools.swampExpansion) {
 			CompoundNBT nbtTag = SLC.get(id);
@@ -27,6 +27,7 @@ public class DevsideToolsBlocks {
 		}
 		
 	}
+	public static final ArrayList<ItemNBTSpawnEgg> NBT_SPAWN_EGGS = new ArrayList<ItemNBTSpawnEgg>();
 	public static final DeferredRegister<Item> ITEMS = new DeferredRegister<Item>(ForgeRegistries.ITEMS, DevsideTools.MODID);
 	public static final CompoundNBT CAT_NBT_BRITISH_SHORTHAIR = new CompoundNBT();
 	public static final CompoundNBT CAT_NBT_PERSIAN = new CompoundNBT();

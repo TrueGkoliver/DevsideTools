@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModList;
@@ -28,6 +29,7 @@ import com.gkoliver.devsidetools.common.commands.PlayerHealCommands;
 import com.gkoliver.devsidetools.common.commands.PotionCommands;
 import com.gkoliver.devsidetools.common.commands.SetCountCommand;
 import com.gkoliver.devsidetools.common.commands.UnbreakableCommand;
+import com.gkoliver.devsidetools.core.registry.DevsideToolsItems;
 
 import java.util.stream.Collectors;
 
@@ -40,9 +42,11 @@ public class DevsideTools
     private static final Logger LOGGER = LogManager.getLogger();
     public static boolean swampExpansion = false;
     public DevsideTools() {
+    	IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
     	if (ModList.get().isLoaded("swampexpansion")) {
     		this.swampExpansion = true;
     	}
+    	DevsideToolsItems.ITEMS.register(eventBus);
     }
     @SubscribeEvent
     public static void setup(final FMLCommonSetupEvent event)
