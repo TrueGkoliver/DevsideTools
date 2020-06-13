@@ -29,14 +29,10 @@ public class EndlessEffectCommand {
 	      dispatcher.register(Commands.literal("effectinfinity").requires((p_198359_0_) -> {
 	         return p_198359_0_.hasPermissionLevel(2);
 	      }).then(Commands.argument("targets", EntityArgument.entities()).executes((context)->{
-	    	  System.out.println("EXECUTING TARGET");
 	    	  return addEffect(context.getSource(), EntityArgument.getEntities(context, "targets"), PotionArgument.getMobEffect(context, "effect"), IntegerArgumentType.getInteger(context, "amplifier"), true);
 	      }).then(Commands.argument("effect", PotionArgument.mobEffect()).executes((cmd) -> {
-	    	  System.out.println(EntityArgument.getEntities(cmd, "targets"));
-	    	  System.out.println("EXECUTING EFFECT");
 	    	  return addEffect(cmd.getSource(), EntityArgument.getEntities(cmd, "targets"), PotionArgument.getMobEffect(cmd, "effect"), 0, true);
 	      }).then(Commands.argument("amplifier", IntegerArgumentType.integer(0, 255)).executes((p_198358_0_) -> {
-	    	  System.out.println("EXECUTING AMPLIFIER");
 	    	  return addEffect(p_198358_0_.getSource(), EntityArgument.getEntities(p_198358_0_, "targets"), PotionArgument.getMobEffect(p_198358_0_, "effect"), IntegerArgumentType.getInteger(p_198358_0_, "amplifier"), true);
 	      }).then(Commands.argument("hideParticles", BoolArgumentType.bool()).executes((p_229759_0_) -> {
 	         return addEffect(p_229759_0_.getSource(), EntityArgument.getEntities(p_229759_0_, "targets"), PotionArgument.getMobEffect(p_229759_0_, "effect"), IntegerArgumentType.getInteger(p_229759_0_, "amplifier"), !BoolArgumentType.getBool(p_229759_0_, "hideParticles"));

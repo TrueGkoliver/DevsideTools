@@ -27,6 +27,8 @@ public class NameCommands {
 		         return p_198820_0_.hasPermissionLevel(2);
 		      }).then(Commands.argument("targets", EntityArgument.entities()))
 				.then(Commands.argument("message", MessageArgument.message()).executes((cmd)->{
+					System.out.println("FIRING MESSAGe");
+					
 					return nameItem(cmd, EntityArgument.getEntities(cmd, "targets"), MessageArgument.getMessage(cmd, "message"));
 				})));
 		}
