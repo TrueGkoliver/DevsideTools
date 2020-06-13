@@ -8,8 +8,6 @@
 	"commands.givepotion" : "Gave 1 ",
 	"commands.name" : "Named item",
 	"commands.lore" : "Gave item lore",
-	"commands.endlesseffect" : "Gave endless effect",
-	"commands.enchantnl" : "Enchanted item",
 	"commands.hunger" : "Altered hunger",
 	"commands.health" : "Altered health",
 	"commands.saturation" : "Alted Saturation",
