@@ -33,7 +33,7 @@ public class UnbreakableCommand {
 				LivingEntity livingEntity = (LivingEntity) entity;
 				ItemStack stack = livingEntity.getHeldItemMainhand();
 				if (!stack.isEmpty()) {
-					CompoundNBT nbtToModify = stack.serializeNBT();
+					CompoundNBT nbtToModify = stack.getTag();
 					nbtToModify.putBoolean("Unbreakable", true);
 					stack.setTag(nbtToModify);
 					source.sendFeedback(new TranslationTextComponent("command.unbreakable.success"), true);
