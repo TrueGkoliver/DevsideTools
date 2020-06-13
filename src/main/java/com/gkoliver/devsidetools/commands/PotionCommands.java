@@ -19,6 +19,8 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.potion.Effect;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public class PotionCommands {
 	public static class PotionCommand {
@@ -66,6 +68,7 @@ public class PotionCommands {
 					if (entityIn instanceof ServerPlayerEntity) {
 						ServerPlayerEntity serverEntity = (ServerPlayerEntity) entityIn;
 						serverEntity.addItemStackToInventory(stack);
+						contextIn.getSource().sendFeedback(new TranslationTextComponent("commands.givepotion").appendSibling(stack.getDisplayName()), true);
 					}
 				}
 			}
@@ -119,6 +122,7 @@ public class PotionCommands {
 					if (entityIn instanceof ServerPlayerEntity) {
 						ServerPlayerEntity serverEntity = (ServerPlayerEntity) entityIn;
 						serverEntity.addItemStackToInventory(stack);
+						contextIn.getSource().sendFeedback(new TranslationTextComponent("commands.givepotion").appendSibling(stack.getDisplayName()), true);
 					}
 				}
 			}
@@ -172,6 +176,7 @@ public class PotionCommands {
 					if (entityIn instanceof ServerPlayerEntity) {
 						ServerPlayerEntity serverEntity = (ServerPlayerEntity) entityIn;
 						serverEntity.addItemStackToInventory(stack);
+						contextIn.getSource().sendFeedback(new TranslationTextComponent("commands.givepotion").appendSibling(stack.getDisplayName()), true);
 					}
 				}
 			}

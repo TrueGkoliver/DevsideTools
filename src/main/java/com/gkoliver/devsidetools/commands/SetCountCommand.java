@@ -11,6 +11,7 @@ import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public class SetCountCommand {
 	public static void register(CommandDispatcher<CommandSource> dispatcher) {
@@ -20,17 +21,19 @@ public class SetCountCommand {
 			return 1;
 		})
 		  .then(Commands.argument("amt", IntegerArgumentType.integer(-100000, 100000)).executes((cmd)->{
-			return setCount(EntityArgument.getEntities(cmd, "targets"), IntegerArgumentType.getInteger(cmd, "amt"));
+			return setCount(cmd.getSource(), EntityArgument.getEntities(cmd, "targets"), IntegerArgumentType.getInteger(cmd, "amt"));
 		}))));
 	}
 	
 	
-	public static int setCount(Collection<? extends Entity> targets, int count) {
+	public static int setCount(CommandSource source, Collection<? extends Entity> targets, int count) {
 		for (Entity target : targets) {
 			if (target instanceof LivingEntity) {
 				LivingEntity living = (LivingEntity) target;
 				ItemStack stack = living.getHeldItemMainhand();
 				stack.setCount(count);
+				source.sendFeedback(new TranslationTextComponent("commands.setcount"), true);
+				
 			}
 		}
 		return 1;

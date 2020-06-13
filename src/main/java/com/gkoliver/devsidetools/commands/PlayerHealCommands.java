@@ -17,14 +17,15 @@ public class PlayerHealCommands {
 		public static void register(CommandDispatcher<CommandSource> dispatcher) {
 			dispatcher.register(Commands.literal("health")
 					.then(Commands.argument("targets", EntityArgument.players()).executes((cmd)->{
-						return heal(20, EntityArgument.getPlayers(cmd, "targets"));
+						return heal(cmd.getSource(), 20, EntityArgument.getPlayers(cmd, "targets"));
 					}).then(Commands.argument("amt", IntegerArgumentType.integer(0, 10000)).executes((cmd)->{
-						return heal(IntegerArgumentType.getInteger(cmd, "amt"), EntityArgument.getPlayers(cmd, "targets"));
+						return heal(cmd.getSource(), IntegerArgumentType.getInteger(cmd, "amt"), EntityArgument.getPlayers(cmd, "targets"));
 					}))));
 		}
-		public static int heal(int amt, Collection<ServerPlayerEntity> targets) {
+		public static int heal(CommandSource source, int amt, Collection<ServerPlayerEntity> targets) {
 			for (PlayerEntity player : targets) {
 				player.setHealth(amt);
+				source.sendFeedback(new TranslationTextComponent("commands.health"), true);
 			}
 			return 1;
 		}

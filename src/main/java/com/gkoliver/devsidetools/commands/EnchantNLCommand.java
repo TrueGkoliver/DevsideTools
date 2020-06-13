@@ -53,7 +53,7 @@ public class EnchantNLCommand {
 		      listnbt.add(compoundnbt);
 		   }
 	   private static int enchant(CommandSource source, Collection<? extends Entity> targets, Enchantment enchantmentIn, int level) throws CommandSyntaxException {
-         int i = 0;
+         int i = 1;
 
          for(Entity entity : targets) {
             if (entity instanceof LivingEntity) {
