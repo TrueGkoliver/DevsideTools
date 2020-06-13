@@ -1,0 +1,6 @@
+{
+	"commands.getid.isPotion" : "The numerical ID of ",
+	"commands.getid.is" : " is ",
+	"command.unbreakable.success" : "Made item unbreakable",
+	"commands.unbreakable.failed.noitem" : "There is no item here!"
+}
