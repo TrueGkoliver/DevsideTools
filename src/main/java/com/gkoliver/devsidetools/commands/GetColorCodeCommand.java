@@ -36,7 +36,7 @@ public class GetColorCodeCommand {
 			colorcode = pt1<<16;
 			colorcode += pt2<<8;
 			colorcode += pt3;
-			source.sendFeedback(new TranslationTextComponent("commands.getcolorcode.hexer").appendSibling(new StringTextComponent(String.valueOf(colorcode))), true);
+			source.sendFeedback(new TranslationTextComponent("commands.getcolorcode.hexer").appendSibling(new StringTextComponent(hex)).appendSibling(new TranslationTextComponent("commands.getid.is")).appendSibling(new StringTextComponent(String.valueOf(colorcode))), true);
 		}
 		return 1;
 	}

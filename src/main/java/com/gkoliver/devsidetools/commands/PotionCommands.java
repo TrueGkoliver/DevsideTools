@@ -67,8 +67,8 @@ public class PotionCommands {
 					stack.setTag(nbtToSet);
 					if (entityIn instanceof ServerPlayerEntity) {
 						ServerPlayerEntity serverEntity = (ServerPlayerEntity) entityIn;
-						serverEntity.addItemStackToInventory(stack);
 						contextIn.getSource().sendFeedback(new TranslationTextComponent("commands.givepotion").appendSibling(stack.getDisplayName()), true);
+						serverEntity.addItemStackToInventory(stack);
 					}
 				}
 			}
@@ -121,8 +121,8 @@ public class PotionCommands {
 					stack.setTag(nbtToSet);
 					if (entityIn instanceof ServerPlayerEntity) {
 						ServerPlayerEntity serverEntity = (ServerPlayerEntity) entityIn;
-						serverEntity.addItemStackToInventory(stack);
 						contextIn.getSource().sendFeedback(new TranslationTextComponent("commands.givepotion").appendSibling(stack.getDisplayName()), true);
+						serverEntity.addItemStackToInventory(stack);
 					}
 				}
 			}
@@ -175,8 +175,8 @@ public class PotionCommands {
 					stack.setTag(nbtToSet);
 					if (entityIn instanceof ServerPlayerEntity) {
 						ServerPlayerEntity serverEntity = (ServerPlayerEntity) entityIn;
-						serverEntity.addItemStackToInventory(stack);
 						contextIn.getSource().sendFeedback(new TranslationTextComponent("commands.givepotion").appendSibling(stack.getDisplayName()), true);
+						serverEntity.addItemStackToInventory(stack);
 					}
 				}
 			}
