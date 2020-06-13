@@ -52,8 +52,6 @@ public class DevsideTools
 	   UnbreakableCommand.register(event.getCommandDispatcher());
 	   EndlessEffectCommand.register(event.getCommandDispatcher());
 	   NameCommands.NameRawCommands.register(event.getCommandDispatcher());
-	   NameCommands.NameCommand.register(event.getCommandDispatcher());
-	   NameCommands.LoreCommand.register(event.getCommandDispatcher());
 	   NameCommands.LoreRawCommands.register(event.getCommandDispatcher());
 	   PotionCommands.PotionCommand.register(event.getCommandDispatcher());
 	   PotionCommands.LingeringPotionCommand.register(event.getCommandDispatcher());

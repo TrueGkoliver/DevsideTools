@@ -2,5 +2,17 @@
 	"commands.getid.isPotion" : "The numerical ID of ",
 	"commands.getid.is" : " is ",
 	"command.unbreakable.success" : "Made item unbreakable",
-	"commands.unbreakable.failed.noitem" : "There is no item here!"
+	"commands.unbreakable.failed.noitem" : "There is no item here!",
+	"commands.getcolorcode.notaccurate" : "There is no proper hex code here. Please paste in a 6-character long hexadecimal code.",
+	"commands.getcolorcode.hexer" : "The color code of ",
+	"commands.givepotion" : "Gave 1 ",
+	"commands.name" : "Named item",
+	"commands.lore" : "Gave item lore",
+	"commands.endlesseffect" : "Gave endless effect",
+	"commands.enchantnl" : "Enchanted item",
+	"commands.hunger" : "Altered hunger",
+	"commands.health" : "Altered health",
+	"commands.saturation" : "Alted Saturation",
+	"commands.setcount" : "Altered item count",
+	"commands.aggravate" : "Aggravated Mobs"
 }

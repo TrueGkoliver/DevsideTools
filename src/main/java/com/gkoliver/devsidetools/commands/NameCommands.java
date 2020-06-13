@@ -18,6 +18,7 @@ import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.StringNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public class NameCommands {
 	public static class NameCommand {
@@ -61,6 +62,7 @@ public class NameCommands {
 					ItemStack stack = livingEntity.getHeldItemMainhand();
 					if (!stack.isEmpty()) {
 						stack.setDisplayName(component);
+						source.getSource().sendFeedback(new TranslationTextComponent("commands.name"), true);
 					}
 				}
 			}
@@ -117,6 +119,7 @@ public class NameCommands {
 						list.add(StringNBT.valueOf(ITextComponent.Serializer.toJson(component)));
 						CompoundNBT nbt = stack.getOrCreateChildTag("display");
 						nbt.put("Lore",list);
+						source.getSource().sendFeedback(new TranslationTextComponent("commands.lore"), true);
 					}
 				}
 			}
