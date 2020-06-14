@@ -67,9 +67,9 @@ public class DevsideToolsItems {
 	
 	
 	public static final Item.Properties SPAWN_EGG_PROPS = new Item.Properties().group(ItemGroup.SEARCH); 
-	public static final RegistryObject<Item> BROWN_MOOSHROOM_SPAWN_EGG = ITEMS.register("brown_mooshroom_spawn_egg", ()->new ItemNBTSpawnEgg(EntityType.MOOSHROOM, 0xBABABA, 0xE520DE, new Item.Properties().group(ItemGroup.SEARCH), BROWN_MOOSHROOM));
+	public static final RegistryObject<Item> BROWN_MOOSHROOM_SPAWN_EGG = ITEMS.register("brown_mooshroom_spawn_egg", ()->new ItemNBTSpawnEgg(EntityType.MOOSHROOM, 0x6C5148, 0x4B362C, new Item.Properties().group(ItemGroup.SEARCH), BROWN_MOOSHROOM));
 	public static final RegistryObject<Item> BROWN_PANDA_SPAWN_EGG = ITEMS.register("brown_panda_spawn_egg", ()->new ItemNBTSpawnEgg(EntityType.PANDA, 0xA5A5A4, 0x523D30, new Item.Properties().group(ItemGroup.SEARCH), BROWN_PANDA));
-	public static final RegistryObject<Item> ARCTIC_FOX_SPAWN_EGG = ITEMS.register("arctic_fox_spawn_egg", ()->new ItemNBTSpawnEgg(EntityType.FOX, 0, 0, SPAWN_EGG_PROPS, ARCTIC_FOX));
+	public static final RegistryObject<Item> ARCTIC_FOX_SPAWN_EGG = ITEMS.register("arctic_fox_spawn_egg", ()->new ItemNBTSpawnEgg(EntityType.FOX, 0xFEFDF6, 0xA2BDB7, SPAWN_EGG_PROPS, ARCTIC_FOX));
 	
 	
 	
