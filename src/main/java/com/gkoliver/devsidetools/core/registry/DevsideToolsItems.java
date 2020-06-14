@@ -9,6 +9,7 @@ import com.gkoliver.devsidetools.common.item.ItemNBTSpawnEgg;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.Item.Properties;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -27,24 +28,47 @@ public class DevsideToolsItems {
 		}
 		
 	}
+	public static RegistryObject<ItemNBTSpawnEgg> genCatEgg(int id, int colorbase, int colorside) {
+		CompoundNBT nbtTag = new CompoundNBT();
+		nbtTag.putInt("CatType", id);
+		RegistryObject<ItemNBTSpawnEgg> tbr = ITEMS.register("cat_spawn_egg_"+Integer.toString(id), ()->new ItemNBTSpawnEgg(EntityType.CAT, colorbase, colorside, new Item.Properties().group(ItemGroup.SEARCH), nbtTag));
+		return tbr;
+	}
+	
 	public static final ArrayList<ItemNBTSpawnEgg> NBT_SPAWN_EGGS = new ArrayList<ItemNBTSpawnEgg>();
 	public static final DeferredRegister<Item> ITEMS = new DeferredRegister<Item>(ForgeRegistries.ITEMS, DevsideTools.MODID);
-	public static final CompoundNBT CAT_NBT_BRITISH_SHORTHAIR = new CompoundNBT();
-	public static final CompoundNBT CAT_NBT_PERSIAN = new CompoundNBT();
-	public static final CompoundNBT CAT_NBT_BABY = new CompoundNBT();
-	public static final CompoundNBT CREEPER_NBT_BOMB = new CompoundNBT();
+	
+	
+	public static final CompoundNBT BROWN_PANDA = new CompoundNBT();
 	public static final CompoundNBT BROWN_MOOSHROOM = new CompoundNBT();
 	public static final HashMap<Integer, CompoundNBT> SLC = new HashMap<Integer,CompoundNBT>();
 	static {
 		registerNBTs();
 	}
 	public static final ArrayList<RegistryObject<ItemNBTSpawnEgg>> SLABFISH_EGGS = new ArrayList<RegistryObject<ItemNBTSpawnEgg>>();
-	public static final RegistryObject<Item> BRITISH_SHORTHAIR_SPAWN_EGG = ITEMS.register("british_shorthair_spawn_egg", ()->new ItemNBTSpawnEgg(EntityType.CAT, 0xBABABA, 0x4B4D4C, new Item.Properties().group(ItemGroup.SEARCH), CAT_NBT_BRITISH_SHORTHAIR));
-	public static final RegistryObject<Item> PERSIAN_SPAWN_EGG = ITEMS.register("persian_spawn_egg", ()->new ItemNBTSpawnEgg(EntityType.CAT, 0x7D6E57, 0x776345, new Item.Properties().group(ItemGroup.SEARCH), CAT_NBT_PERSIAN));
-	public static final RegistryObject<Item> BABY_CAT_SPAWN_EGG = ITEMS.register("baby_cat_spawn_egg", ()->new ItemNBTSpawnEgg(EntityType.CAT, 0xBABABA, 0xE520DE, new Item.Properties(), CAT_NBT_BABY));
-	public static final RegistryObject<Item> NUKE_SPAWN_EGG = ITEMS.register("nuke_spawn_egg", ()->new ItemNBTSpawnEgg(EntityType.CREEPER, 0xBABABA, 0xE520DE, new Item.Properties().group(ItemGroup.SEARCH), CREEPER_NBT_BOMB));
-	public static final RegistryObject<Item> BROWN_MOOSHROOM_SPAWN_EGG = ITEMS.register("brown_mooshroom_spawn_egg", ()->new ItemNBTSpawnEgg(EntityType.MOOSHROOM, 0xBABABA, 0xE520DE, new Item.Properties().group(ItemGroup.SEARCH), BROWN_MOOSHROOM));
 	
+	//Cats: All of them
+	public static final RegistryObject<ItemNBTSpawnEgg> TABBY_SPAWN_EGG = genCatEgg(0, 0x725239, 0x2A1A0E);
+	public static final RegistryObject<ItemNBTSpawnEgg> TUXEDO_SPAWN_EGG = genCatEgg(1, 0x2A1A0E, 0xECECEC);
+	public static final RegistryObject<ItemNBTSpawnEgg> RED_SPAWN_EGG = genCatEgg(2, 0xEBC987, 0xE08B2C);
+	public static final RegistryObject<ItemNBTSpawnEgg> SIAMESE_SPAWN_EGG = genCatEgg(3, 0xDFD4C2, 0x534A37);
+	public static final RegistryObject<ItemNBTSpawnEgg> BRITISH_SHORTHAIR_SPAWN_EGG = genCatEgg(4, 0xBBBBBB, 0x515151);
+	public static final RegistryObject<ItemNBTSpawnEgg> CALICO_SPAWN_EGG = genCatEgg(5, 0x674619, 0x4A443A);
+	public static final RegistryObject<ItemNBTSpawnEgg> PERSIAN_SPAWN_EGG = genCatEgg(6, 0xFCE8CA, 0x675134);
+	public static final RegistryObject<ItemNBTSpawnEgg> RAGDOLL_SPAWN_EGG = genCatEgg(7, 0xF4F4F4, 0x726258);
+	public static final RegistryObject<ItemNBTSpawnEgg> WHITE_SPAWN_EGG = genCatEgg(8, 0xFAF6F8, 0x7D7B7C);
+	public static final RegistryObject<ItemNBTSpawnEgg> JELLIE_SPAWN_EGG = genCatEgg(9, 0x403D3D, 0xE4E1E2);
+	public static final RegistryObject<ItemNBTSpawnEgg> BLACK_SPAWN_EGG = genCatEgg(10, 0x0E0D1F, 0x03030A);
+	
+	
+	
+	
+	
+	
+	public static final RegistryObject<Item> BROWN_MOOSHROOM_SPAWN_EGG = ITEMS.register("brown_mooshroom_spawn_egg", ()->new ItemNBTSpawnEgg(EntityType.MOOSHROOM, 0xBABABA, 0xE520DE, new Item.Properties().group(ItemGroup.SEARCH), BROWN_MOOSHROOM));
+	public static final RegistryObject<Item> BROWN_PANDA_SPAWN_EGG = ITEMS.register("brown_panda_spawn_egg", ()->new ItemNBTSpawnEgg(EntityType.PANDA, 0xA5A5A4, 0x523D30, new Item.Properties().group(ItemGroup.SEARCH), BROWN_PANDA));
+	
+	//Slabfish
 	public static final RegistryObject<ItemNBTSpawnEgg> SLABFISH_0 = genSlabEgg(0, 0x42662D, 0x25512C);
 	public static final RegistryObject<ItemNBTSpawnEgg> SLABFISH_1 = genSlabEgg(1, 0x386080, 0x284257);
 	public static final RegistryObject<ItemNBTSpawnEgg> SLABFISH_2 = genSlabEgg(2, 0x363A17, 0x191E11);
@@ -94,17 +118,9 @@ public class DevsideToolsItems {
 	public static final RegistryObject<ItemNBTSpawnEgg> SLABFISH_42 = genSlabEgg(42, 0x564119, 0x282415);
 	
 	public static void registerNBTs() {
-		CAT_NBT_BRITISH_SHORTHAIR.putInt("CatType", 4);
-		CAT_NBT_PERSIAN.putInt("CatType", 6);
-		CAT_NBT_BABY.putInt("Age", -1000);
-		CAT_NBT_BABY.putBoolean("AgeLocked", true);
-		
-		CREEPER_NBT_BOMB.putByte("powered", (byte) 1);
-		CREEPER_NBT_BOMB.putByte("ignited", (byte) 1);
-		CREEPER_NBT_BOMB.putByte("ExplosionRadius", (byte) 100);
-		
 		BROWN_MOOSHROOM.putString("Type", "brown");
-		
+		BROWN_PANDA.putString("MainGene", "brown");
+		BROWN_PANDA.putString("HiddenGene", "brown");
 		for (int i=0; i<43; i++) {
 			System.out.println(i);
 			CompoundNBT compound = new CompoundNBT();
