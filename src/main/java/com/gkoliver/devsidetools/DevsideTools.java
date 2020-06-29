@@ -29,6 +29,7 @@ import com.gkoliver.devsidetools.common.commands.PlayerHealCommands;
 import com.gkoliver.devsidetools.common.commands.PotionCommands;
 import com.gkoliver.devsidetools.common.commands.SetCountCommand;
 import com.gkoliver.devsidetools.common.commands.UnbreakableCommand;
+import com.gkoliver.devsidetools.core.registry.DevsideToolsEffects;
 import com.gkoliver.devsidetools.core.registry.DevsideToolsItems;
 
 import java.util.stream.Collectors;
@@ -47,6 +48,8 @@ public class DevsideTools
     		this.swampExpansion = true;
     	}
     	DevsideToolsItems.ITEMS.register(eventBus);
+    	DevsideToolsEffects.EFFECTS.register(eventBus);
+    	DevsideToolsEffects.POTIONS.register(eventBus);
     }
     @SubscribeEvent
     public static void setup(final FMLCommonSetupEvent event)

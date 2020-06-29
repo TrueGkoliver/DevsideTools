@@ -14,6 +14,12 @@
 	"commands.setcount" : "Altered item count",
 	"commands.aggravate" : "Aggravated entities",
 	
+	"effect.devsidetools.vibecheck" : "Vibe Check",
+	"item.minecraft.potion.effect.vibecheck" : "Potion of Vibe Check",
+	"item.minecraft.splash_potion.effect.vibecheck" : "Splash Potion of Vibe Check",
+	"item.minecraft.lingering_potion.effect.vibecheck" : "Lingering Potion of Vibe Check",
+	"item.minecraft.tipped_arrow.effect.vibecheck" : "Tipped Arrow of Vibe Check",
+	
 	"item.devsidetools.cat_spawn_egg_0" : "Tabby Cat Spawn Egg",
 	"item.devsidetools.cat_spawn_egg_1" : "Tuxeduo Cat Spawn Egg",
 	"item.devsidetools.cat_spawn_egg_2" : "Red Cat Spawn Egg",
