@@ -106,8 +106,8 @@ dependencies {
 
     // These dependencies get remapped to your current MCP mappings
     // deobf 'com.mod-buildcraft:buildcraft:6.0.8:dev'
-	compile fg.deobf("curse.maven:abnormals-core:2957837")
-	compile fg.deobf("curse.maven:swamp-expansion:2958029")
+	// compile fg.deobf("curse.maven:abnormals-core:2957837")
+	// compile fg.deobf("curse.maven:swamp-expansion:2958029")
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html

@@ -4,7 +4,7 @@ import java.util.Objects;
 
 import javax.annotation.Nullable;
 
-import com.farcr.swampexpansion.core.registry.SwampExEntities;
+//import com.farcr.swampexpansion.core.registry.SwampExEntities;
 import com.gkoliver.devsidetools.core.registry.DevsideToolsItems;
 
 import net.minecraft.block.Block;
@@ -58,11 +58,11 @@ public class ItemNBTSpawnEgg extends Item {
 	
 	public EntityType<?> getType(@Nullable CompoundNBT p_208076_1_) {
 	      if (isSlabber) {
-	    	  return SwampExEntities.SLABFISH.get();
+	    	 // return SwampExEntities.SLABFISH.get();
 	      }
-	      else {
+	      //else {
 	    	  return this.typeIn;
-	      }
+	      //}
 	   }
 	@Override
 	@SuppressWarnings("unused")
