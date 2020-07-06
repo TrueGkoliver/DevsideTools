@@ -9,8 +9,10 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.event.ClickEvent;
+import net.minecraft.util.text.event.HoverEvent;
 
 public class GetColorCodeCommand {
 	private static final SimpleCommandExceptionType NOT_ACCURATE_EXCEPTION = new SimpleCommandExceptionType(new TranslationTextComponent("commands.getcolorcode.notaccurate"));
@@ -39,7 +41,13 @@ public class GetColorCodeCommand {
 			colorcode += pt3;
 			final String colorCode = String.valueOf(colorcode);
 			source.sendFeedback(new TranslationTextComponent("commands.getcolorcode.hexer").func_230529_a_(new StringTextComponent(hex)).func_230529_a_(new TranslationTextComponent("commands.getid.is")).func_230529_a_(new StringTextComponent(String.valueOf(colorcode)).func_240700_a_((style)->{
-				return style.func_240715_a_(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, colorCode));
+				return style
+						.func_240712_a_(TextFormatting.GREEN)
+						.func_240716_a_(new HoverEvent(HoverEvent.Action.field_230550_a_, new TranslationTextComponent("chat.copy.click")))
+						.func_240715_a_(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, colorCode)
+						
+								
+				);
 			})), true);
 		}
 		return 1;

@@ -47,7 +47,7 @@ public class DevsideTools
     	if (ModList.get().isLoaded("swampexpansion")) {
     		this.swampExpansion = true;
     	}
-    	DevsideToolsItems.ITEMS.regisster(eventBus);
+    	DevsideToolsItems.ITEMS.register(eventBus);
     	DevsideToolsEffects.EFFECTS.register(eventBus);
     	DevsideToolsEffects.POTIONS.register(eventBus);
     }
