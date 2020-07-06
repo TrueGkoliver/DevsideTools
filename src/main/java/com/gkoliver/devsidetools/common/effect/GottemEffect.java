@@ -12,6 +12,7 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
 import net.minecraft.potion.InstantEffect;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 
 public class GottemEffect extends InstantEffect {
 
@@ -21,7 +22,8 @@ public class GottemEffect extends InstantEffect {
 	
 	@Override
 	public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
-		List<Entity> entities = entityLivingBaseIn.getEntityWorld().getEntitiesWithinAABBExcludingEntity(entityLivingBaseIn, new AxisAlignedBB(entityLivingBaseIn.getPosition()).grow(2000D));
+		BlockPos position = new BlockPos(entityLivingBaseIn.getPosX(), entityLivingBaseIn.getPosY(), entityLivingBaseIn.getPosZ());
+		List<Entity> entities = entityLivingBaseIn.getEntityWorld().getEntitiesWithinAABBExcludingEntity(entityLivingBaseIn, new AxisAlignedBB(position).grow(2000D));
 		aggravate(entities, entityLivingBaseIn, false);
 	}
 	public static int aggravate(Collection<? extends Entity> aggressor, Entity aggression, boolean doBoth) {

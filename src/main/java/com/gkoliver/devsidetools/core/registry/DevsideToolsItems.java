@@ -36,7 +36,7 @@ public class DevsideToolsItems {
 	}
 	
 	public static final ArrayList<ItemNBTSpawnEgg> NBT_SPAWN_EGGS = new ArrayList<ItemNBTSpawnEgg>();
-	public static final DeferredRegister<Item> ITEMS = new DeferredRegister<Item>(ForgeRegistries.ITEMS, DevsideTools.MODID);
+	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, DevsideTools.MODID);
 	
 	
 	public static final CompoundNBT BROWN_PANDA = new CompoundNBT();
@@ -73,7 +73,7 @@ public class DevsideToolsItems {
 	
 	
 	
-	//Slabfish
+	/*//Slabfish
 	public static final RegistryObject<ItemNBTSpawnEgg> SLABFISH_0 = genSlabEgg(0, 0x42662D, 0x25512C);
 	public static final RegistryObject<ItemNBTSpawnEgg> SLABFISH_1 = genSlabEgg(1, 0x386080, 0x284257);
 	public static final RegistryObject<ItemNBTSpawnEgg> SLABFISH_2 = genSlabEgg(2, 0x363A17, 0x191E11);
@@ -103,8 +103,9 @@ public class DevsideToolsItems {
 	public static final RegistryObject<ItemNBTSpawnEgg> SLABFISH_26 = genSlabEgg(26, 0x807F7B, 0x515557);
 	/*public static final RegistryObject<ItemNBTSpawnEgg> SLABFISH_27 = genSlabEgg(27, 0, 0);
 	public static final RegistryObject<ItemNBTSpawnEgg> SLABFISH_28 = genSlabEgg(28, 0, 0);*/
-	public static final RegistryObject<ItemNBTSpawnEgg> SLABFISH_29 = genSlabEgg(29, 0x631A1A, 0x2C0909);
+	//public static final RegistryObject<ItemNBTSpawnEgg> SLABFISH_29 = genSlabEgg(29, 0x631A1A, 0x2C0909);
 	//public static final RegistryObject<ItemNBTSpawnEgg> SLABFISH_30 = genSlabEgg(30, 0, 0);
+	/*
 	public static final RegistryObject<ItemNBTSpawnEgg> SLABFISH_31 = genSlabEgg(31, 0x387A5F, 0x195200);
 	public static final RegistryObject<ItemNBTSpawnEgg> SLABFISH_32 = genSlabEgg(32, 0x2D4A57, 0x51869C);
 	public static final RegistryObject<ItemNBTSpawnEgg> SLABFISH_33 = genSlabEgg(33, 0x2C4B64, 0x844638);
@@ -117,7 +118,7 @@ public class DevsideToolsItems {
 	public static final RegistryObject<ItemNBTSpawnEgg> SLABFISH_40 = genSlabEgg(40, 0x37707E, 0x1B343A);
 	public static final RegistryObject<ItemNBTSpawnEgg> SLABFISH_41 = genSlabEgg(41, 0x1F3947, 0x626262);
 	public static final RegistryObject<ItemNBTSpawnEgg> SLABFISH_42 = genSlabEgg(42, 0x564119, 0x282415);
-	
+	*/
 	public static void registerNBTs() {
 		BROWN_MOOSHROOM.putString("Type", "brown");
 		BROWN_PANDA.putString("MainGene", "brown");
