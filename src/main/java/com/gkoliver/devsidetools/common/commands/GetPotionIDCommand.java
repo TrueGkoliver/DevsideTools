@@ -6,6 +6,7 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.PotionArgument;
 import net.minecraft.potion.Effect;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class GetPotionIDCommand {
@@ -24,7 +25,7 @@ public class GetPotionIDCommand {
 	      int i = 1;
 	      int id = Effect.getId(effect);
 	      System.out.println(id);
-	      source.sendFeedback(new TranslationTextComponent("commands.getid.isPotion").appendSibling(effect.getDisplayName().appendSibling(new TranslationTextComponent("commands.getid.is")).appendText(String.valueOf(id))), true);
+	      source.sendFeedback(new TranslationTextComponent("commands.getid.isPotion").func_230529_a_(effect.getDisplayName()).func_230529_a_(new TranslationTextComponent("commands.getid.is")).func_230529_a_(new StringTextComponent(String.valueOf(id))), true);
 	      
 	      return i;
 	      
