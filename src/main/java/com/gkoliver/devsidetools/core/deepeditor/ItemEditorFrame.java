@@ -11,11 +11,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.awt.Frame;
-import java.awt.Checkbox;
-import java.awt.Label;
-import java.awt.TextField;
-import java.awt.FlowLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -94,15 +91,25 @@ public class ItemEditorFrame extends Frame {
 
 
     }
+    static int max_x = 256;
+    static int max_y = 36/2;
     public void setup() {
-        this.setLayout(new FlowLayout());
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(UNBREAKABLE);
+        UNBREAKABLE.setMaximumSize(new Dimension(max_x, max_y));
         this.add(COUNT_LABEL);
+        COUNT_LABEL.setMaximumSize(new Dimension(max_x, max_y));
         this.add(COUNT);
+        COUNT.setMaximumSize(new Dimension(max_x, max_y));
+        COUNT.setMaximumSize(new Dimension(max_x, max_y));
         this.add(DAMAGE_LABEL);
+        DAMAGE_LABEL.setMaximumSize(new Dimension(max_x, max_y));
         this.add(DAMAGE);
+        DAMAGE.setMaximumSize(new Dimension(max_x, max_y));
         this.add(ID_LABEL);
-        NAMESPACED_ID.setSize(250, 36);
+        ID_LABEL.setMaximumSize(new Dimension(max_x, max_y));
+        NAMESPACED_ID.setSize(max_x, 36);
+        NAMESPACED_ID.setMaximumSize(new Dimension(max_x, max_y));
         this.add(NAMESPACED_ID);
         this.addWindowListener(new WindowAdapter() {
             @Override
