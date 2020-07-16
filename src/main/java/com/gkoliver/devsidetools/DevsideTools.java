@@ -1,11 +1,14 @@
 package com.gkoliver.devsidetools;
 
+import com.gkoliver.devsidetools.common.commands.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -19,16 +22,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.gkoliver.devsidetools.common.commands.AggravateCommand;
-import com.gkoliver.devsidetools.common.commands.EnchantNLCommand;
-import com.gkoliver.devsidetools.common.commands.EndlessEffectCommand;
-import com.gkoliver.devsidetools.common.commands.GetColorCodeCommand;
-import com.gkoliver.devsidetools.common.commands.GetPotionIDCommand;
-import com.gkoliver.devsidetools.common.commands.NameCommands;
-import com.gkoliver.devsidetools.common.commands.PlayerHealCommands;
-import com.gkoliver.devsidetools.common.commands.PotionCommands;
-import com.gkoliver.devsidetools.common.commands.SetCountCommand;
-import com.gkoliver.devsidetools.common.commands.UnbreakableCommand;
 import com.gkoliver.devsidetools.core.registry.DevsideToolsEffects;
 import com.gkoliver.devsidetools.core.registry.DevsideToolsItems;
 
@@ -50,6 +43,7 @@ public class DevsideTools
     	DevsideToolsItems.ITEMS.register(eventBus);
     	DevsideToolsEffects.EFFECTS.register(eventBus);
     	DevsideToolsEffects.POTIONS.register(eventBus);
+		DistExecutor.callWhenOn(Dist.CLIENT, ()->()->System.setProperty("java.awt.headless", "false"));
     }
     @SubscribeEvent
     public static void setup(final FMLCommonSetupEvent event)
@@ -73,5 +67,6 @@ public class DevsideTools
 	   PlayerHealCommands.HungerCommand.register(event.getCommandDispatcher());
 	   PlayerHealCommands.SaturateCommand.register(event.getCommandDispatcher());
 	   GetColorCodeCommand.register(event.getCommandDispatcher());
+		DeepEditorCommands.register(event.getCommandDispatcher());
    }
 }
