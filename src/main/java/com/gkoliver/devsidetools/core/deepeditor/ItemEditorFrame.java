@@ -63,24 +63,27 @@ public class ItemEditorFrame extends Frame {
         int count = COUNT.getValue();
         ResourceLocation id = new ResourceLocation(NAMESPACED_ID.getText());
         int damage = DAMAGE.getValue();
-        if (id==stack.getItem().getRegistryName()) {
+        System.out.println(id);
+        System.out.println(stack.getItem().getRegistryName());
+        if (id.equals(stack.getItem().getRegistryName())) {
             this.stack.setCount(count);
             this.stack.setDamage(damage);
             CompoundNBT editable = stack.getTag();
             editable.putBoolean("Unbreakable", unbreakable);
             stack.setTag(editable);
+            System.out.println(stack);
             DevsideTools.handler.sendToServer(new SetItemStackPacket(player.getUniqueID(), slotId, stack));
         } else {
             ItemStack stackToReplace = new ItemStack(ForgeRegistries.ITEMS.getValue(id));
-            this.stack.setCount(count);
-            this.stack.setDamage(damage);
+            stackToReplace.setCount(count);
+            stackToReplace.setDamage(damage);
             CompoundNBT editable = stack.getTag();
             editable.putBoolean("Unbreakable", unbreakable);
             stackToReplace.setTag(editable);
             System.out.println(stackToReplace);
             System.out.println(slotId);
             container.inventorySlots.get(slotId).putStack(stackToReplace);
-            System.out.println();
+            System.out.println(stack);
             DevsideTools.handler.sendToServer(new SetItemStackPacket(player.getUniqueID(), slotId, stackToReplace));
 
 

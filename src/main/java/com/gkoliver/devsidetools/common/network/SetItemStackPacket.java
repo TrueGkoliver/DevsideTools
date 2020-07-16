@@ -29,7 +29,8 @@ public class SetItemStackPacket {
     public static void write(SetItemStackPacket message, PacketBuffer buffer) {
         buffer.writeUniqueId(message.playerUUID);
         buffer.writeInt(message.stackSlot);
-        buffer.writeItemStack(message.stack);
+        System.out.println(message.stack);
+        buffer.writeItemStack(message.stack, false);
     }
     public static void work(SetItemStackPacket msg, Supplier<NetworkEvent.Context> context) {
         NetworkEvent.Context ctx = context.get();
