@@ -13,10 +13,10 @@ public class DeepEditorCommands {
             return cmdsource.hasPermissionLevel(2);
         }).executes((context)->{
             ItemStack stackIn = context.getSource().asPlayer().getHeldItemMainhand();
-            int slotId = context.getSource().asPlayer().inventory.getSlotFor(stackIn);
+            int slotId = context.getSource().asPlayer().inventory.currentItem;
             try {
                 if (Minecraft.getInstance().world.isRemote()) {
-                    new ItemEditorFrame(stackIn, context.getSource().asPlayer().container, slotId);
+                    new ItemEditorFrame(stackIn, context.getSource().asPlayer(), slotId);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

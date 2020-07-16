@@ -1,8 +1,10 @@
 package com.gkoliver.devsidetools;
 
 import com.gkoliver.devsidetools.common.commands.*;
+import com.gkoliver.devsidetools.common.network.SetItemStackPacket;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -19,6 +21,8 @@ import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.network.NetworkRegistry;
+import net.minecraftforge.fml.network.simple.SimpleChannel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,6 +39,7 @@ public class DevsideTools
 	public static final String MODID = "devsidetools";
     private static final Logger LOGGER = LogManager.getLogger();
     public static boolean swampExpansion = false;
+    public static SimpleChannel handler = NetworkRegistry.newSimpleChannel(new ResourceLocation(MODID, "deep_editor_handler"), ()->"1.16.1", predicate -> true, predicate->true);
     public DevsideTools() {
     	IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
     	if (ModList.get().isLoaded("swampexpansion")) {
@@ -43,12 +48,13 @@ public class DevsideTools
     	DevsideToolsItems.ITEMS.register(eventBus);
     	DevsideToolsEffects.EFFECTS.register(eventBus);
     	DevsideToolsEffects.POTIONS.register(eventBus);
+    	eventBus.addListener(this::setup);
 		DistExecutor.callWhenOn(Dist.CLIENT, ()->()->System.setProperty("java.awt.headless", "false"));
     }
-    @SubscribeEvent
-    public static void setup(final FMLCommonSetupEvent event)
+    public void setup(final FMLCommonSetupEvent event)
     {
-   
+    	System.out.println("WHAT DO YOU MENA INVALID HJ DJF DYOU EDASTUU GUDOUBM KWFY ");
+   		handler.registerMessage(1, SetItemStackPacket.class, SetItemStackPacket::write, SetItemStackPacket::read, SetItemStackPacket::work);
     }
     @SubscribeEvent
    public static void onServerStartingEvent(FMLServerStartingEvent event) {

@@ -1,9 +1,14 @@
 package com.gkoliver.devsidetools.core.deepeditor;
 
+import com.gkoliver.devsidetools.DevsideTools;
+import com.gkoliver.devsidetools.common.network.SetItemStackPacket;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.awt.Frame;
@@ -24,6 +29,7 @@ public class ItemEditorFrame extends Frame {
     public final Label ID_LABEL = new Label("Namespaced ID:");
     public final TextField NAMESPACED_ID = new TextField();
     Container container;
+    PlayerEntity player;
     int slotId;
     public ItemEditorFrame() {
         this.setup();
@@ -35,9 +41,10 @@ public class ItemEditorFrame extends Frame {
         this.stack = stackToEdit;
         setupWithItemStack(stackToEdit);
     }
-    public ItemEditorFrame(ItemStack stackToEdit, Container containerIn, int slotId) {
+    public ItemEditorFrame(ItemStack stackToEdit, PlayerEntity playerIn, int slotId) {
         this(stackToEdit);
-        this.container = containerIn;
+        this.player = playerIn;
+        this.container = playerIn.container;
         this.slotId = slotId;
     }
     public void setupWithItemStack(ItemStack stackIn) {
@@ -62,6 +69,7 @@ public class ItemEditorFrame extends Frame {
             CompoundNBT editable = stack.getTag();
             editable.putBoolean("Unbreakable", unbreakable);
             stack.setTag(editable);
+            DevsideTools.handler.sendToServer(new SetItemStackPacket(player.getUniqueID(), slotId, stack));
         } else {
             ItemStack stackToReplace = new ItemStack(ForgeRegistries.ITEMS.getValue(id));
             this.stack.setCount(count);
@@ -72,6 +80,9 @@ public class ItemEditorFrame extends Frame {
             System.out.println(stackToReplace);
             System.out.println(slotId);
             container.inventorySlots.get(slotId).putStack(stackToReplace);
+            System.out.println();
+            DevsideTools.handler.sendToServer(new SetItemStackPacket(player.getUniqueID(), slotId, stackToReplace));
+
 
         }
 
