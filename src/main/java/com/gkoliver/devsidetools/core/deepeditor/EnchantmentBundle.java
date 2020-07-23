@@ -39,8 +39,15 @@ public class EnchantmentBundle {
                 }
             }
         );
+        Label enchant_amplifier_label = new Label("Amplifier Amount:");
+        IntOnlyField enchant_amplifier_field = new IntOnlyField();
+        enchant_amplifier_field.addTextListener((ctx)->{
+            amplifier = enchant_amplifier_field.getValue();
+        });
         toReturn.add(enchant_label);
         toReturn.add(enchant_field);
+        toReturn.add(enchant_amplifier_label);
+        toReturn.add(enchant_amplifier_field);
         return toReturn;
     }
 }

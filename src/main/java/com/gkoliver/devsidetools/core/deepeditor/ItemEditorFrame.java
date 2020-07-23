@@ -15,6 +15,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class ItemEditorFrame extends Frame {
     public ItemStack stack;
@@ -25,8 +26,10 @@ public class ItemEditorFrame extends Frame {
     public final IntOnlyField COUNT = new IntOnlyField();
     public final Label ID_LABEL = new Label("Namespaced ID:");
     public final TextField NAMESPACED_ID = new TextField();
+    public final List CONTAINER_LIST = new List();
     Container container;
     PlayerEntity player;
+    ArrayList<EnchantmentBundle> bundles = new ArrayList<EnchantmentBundle>();
     int slotId;
     public ItemEditorFrame() {
         this.setup();
@@ -85,6 +88,9 @@ public class ItemEditorFrame extends Frame {
 
 
         }
+        for (EnchantmentBundle bundle : bundles) {
+            this.stack.addEnchantment(bundle.enchant, bundle.amplifier);
+        }
 
 
 
@@ -111,6 +117,7 @@ public class ItemEditorFrame extends Frame {
         NAMESPACED_ID.setSize(max_x, 36);
         NAMESPACED_ID.setMaximumSize(new Dimension(max_x, max_y));
         this.add(NAMESPACED_ID);
+        
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
