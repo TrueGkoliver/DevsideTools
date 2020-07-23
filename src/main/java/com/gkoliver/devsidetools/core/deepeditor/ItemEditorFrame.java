@@ -2,6 +2,7 @@ package com.gkoliver.devsidetools.core.deepeditor;
 
 import com.gkoliver.devsidetools.DevsideTools;
 import com.gkoliver.devsidetools.common.network.SetItemStackPacket;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
@@ -28,7 +29,10 @@ public class ItemEditorFrame extends Frame {
     public final TextField NAMESPACED_ID = new TextField();
     public final List CONTAINER_LIST = new List();
     Container container;
+    java.awt.Container new_container;
     PlayerEntity player;
+    public final Button ADD_BUTTON = new Button("+");
+    public final Button REMOVE_BUTTON = new Button("-");
     ArrayList<EnchantmentBundle> bundles = new ArrayList<EnchantmentBundle>();
     int slotId;
     public ItemEditorFrame() {
@@ -56,6 +60,13 @@ public class ItemEditorFrame extends Frame {
         ResourceLocation locationIn = stackIn.getItem().getRegistryName();
         NAMESPACED_ID.setText(locationIn.toString());
         DAMAGE.setText(String.valueOf(stackIn.getDamage()));
+        stackIn.getEnchantmentTagList().forEach((nbt)->{
+            CompoundNBT compound = (CompoundNBT)nbt;
+            String id = compound.getString("id");
+            int amplifier = compound.getInt("lvl");
+            EnchantmentBundle bundleIn = new EnchantmentBundle(ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(id)), amplifier);
+            bundles.add(bundleIn);
+        });
         this.setVisible(true);
     }
     public void serializeStack() {
@@ -91,11 +102,9 @@ public class ItemEditorFrame extends Frame {
         for (EnchantmentBundle bundle : bundles) {
             this.stack.addEnchantment(bundle.enchant, bundle.amplifier);
         }
-
-
-
-
-
+    }
+    public int getEnchantIdentification() {
+        return CONTAINER_LIST.getSelectedIndex();
     }
     static int max_x = 256;
     static int max_y = 36/2;
@@ -117,7 +126,28 @@ public class ItemEditorFrame extends Frame {
         NAMESPACED_ID.setSize(max_x, 36);
         NAMESPACED_ID.setMaximumSize(new Dimension(max_x, max_y));
         this.add(NAMESPACED_ID);
-        
+        ADD_BUTTON.addActionListener((ctx)->{
+            EnchantmentBundle bundleIn = new EnchantmentBundle(Enchantments.SHARPNESS, 1);
+            bundles.add(bundleIn);
+            CONTAINER_LIST.add(String.valueOf(bundles.size()+1));
+        });
+        ADD_BUTTON.setMaximumSize(new Dimension(max_x/4, max_y));
+        REMOVE_BUTTON.addActionListener((ctx)->{
+            bundles.remove(getEnchantIdentification());
+        });
+        REMOVE_BUTTON.setMaximumSize(new Dimension(max_x/4, max_y));
+        CONTAINER_LIST.addItemListener((ctx)->{
+            if (new_container!=null) {
+                this.remove(new_container);
+            }
+            new_container = bundles.get(getEnchantIdentification()).getContainer();
+            System.out.println(new_container);
+            add(new_container);
+        });
+        CONTAINER_LIST.setMaximumSize(new Dimension(max_x, 500));
+        this.add(ADD_BUTTON);
+        this.add(REMOVE_BUTTON);
+        this.add(CONTAINER_LIST);
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {

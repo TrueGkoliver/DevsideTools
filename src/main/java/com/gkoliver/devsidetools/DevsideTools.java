@@ -74,6 +74,6 @@ public class DevsideTools
 	   PlayerHealCommands.HungerCommand.register(event.getDispatcher());
 	   PlayerHealCommands.SaturateCommand.register(event.getDispatcher());
 	   GetColorCodeCommand.register(event.getDispatcher());
-	   //DeepEditorCommands.register(event.getCommandDispatcher());
+	   DeepEditorCommands.register(event.getDispatcher());
    }
 }
