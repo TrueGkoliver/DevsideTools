@@ -7,6 +7,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -28,6 +29,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.gkoliver.devsidetools.core.registry.DevsideToolsEffects;
 import com.gkoliver.devsidetools.core.registry.DevsideToolsItems;
+import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.stream.Collectors;
 
@@ -56,22 +58,22 @@ public class DevsideTools
    		handler.registerMessage(1, SetItemStackPacket.class, SetItemStackPacket::write, SetItemStackPacket::read, SetItemStackPacket::work);
     }
     @SubscribeEvent
-   public static void onServerStartingEvent(FMLServerStartingEvent event) {
-	   EnchantNLCommand.register(event.getCommandDispatcher());
-	   GetPotionIDCommand.register(event.getCommandDispatcher());
-	   UnbreakableCommand.register(event.getCommandDispatcher());
-	   EndlessEffectCommand.register(event.getCommandDispatcher());
-	   NameCommands.NameRawCommands.register(event.getCommandDispatcher());
-	   NameCommands.LoreRawCommands.register(event.getCommandDispatcher());
-	   PotionCommands.PotionCommand.register(event.getCommandDispatcher());
-	   PotionCommands.LingeringPotionCommand.register(event.getCommandDispatcher());
-	   PotionCommands.SplashPotionCommand.register(event.getCommandDispatcher());
-	   AggravateCommand.register(event.getCommandDispatcher());
-	   SetCountCommand.register(event.getCommandDispatcher());
-	   PlayerHealCommands.HealCommand.register(event.getCommandDispatcher());
-	   PlayerHealCommands.HungerCommand.register(event.getCommandDispatcher());
-	   PlayerHealCommands.SaturateCommand.register(event.getCommandDispatcher());
-	   GetColorCodeCommand.register(event.getCommandDispatcher());
+   public static void onServerStartingEvent(RegisterCommandsEvent event) {
+	   EnchantNLCommand.register(event.getDispatcher());
+	   GetPotionIDCommand.register(event.getDispatcher());
+	   UnbreakableCommand.register(event.getDispatcher());
+	   EndlessEffectCommand.register(event.getDispatcher());
+	   NameCommands.NameRawCommands.register(event.getDispatcher());
+	   NameCommands.LoreRawCommands.register(event.getDispatcher());
+	   PotionCommands.PotionCommand.register(event.getDispatcher());
+	   PotionCommands.LingeringPotionCommand.register(event.getDispatcher());
+	   PotionCommands.SplashPotionCommand.register(event.getDispatcher());
+	   AggravateCommand.register(event.getDispatcher());
+	   SetCountCommand.register(event.getDispatcher());
+	   PlayerHealCommands.HealCommand.register(event.getDispatcher());
+	   PlayerHealCommands.HungerCommand.register(event.getDispatcher());
+	   PlayerHealCommands.SaturateCommand.register(event.getDispatcher());
+	   GetColorCodeCommand.register(event.getDispatcher());
 	   //DeepEditorCommands.register(event.getCommandDispatcher());
    }
 }
