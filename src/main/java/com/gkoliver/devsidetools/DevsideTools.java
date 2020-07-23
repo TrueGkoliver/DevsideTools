@@ -53,7 +53,6 @@ public class DevsideTools
     }
     public void setup(final FMLCommonSetupEvent event)
     {
-    	System.out.println("WHAT DO YOU MENA INVALID HJ DJF DYOU EDASTUU GUDOUBM KWFY ");
    		handler.registerMessage(1, SetItemStackPacket.class, SetItemStackPacket::write, SetItemStackPacket::read, SetItemStackPacket::work);
     }
     @SubscribeEvent
@@ -73,6 +72,6 @@ public class DevsideTools
 	   PlayerHealCommands.HungerCommand.register(event.getCommandDispatcher());
 	   PlayerHealCommands.SaturateCommand.register(event.getCommandDispatcher());
 	   GetColorCodeCommand.register(event.getCommandDispatcher());
-		DeepEditorCommands.register(event.getCommandDispatcher());
+	   //DeepEditorCommands.register(event.getCommandDispatcher());
    }
 }
