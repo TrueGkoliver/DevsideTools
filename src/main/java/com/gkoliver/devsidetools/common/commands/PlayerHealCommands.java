@@ -13,8 +13,8 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class PlayerHealCommands {
-	public static class HealCommand {
-		public static void register(CommandDispatcher<CommandSource> dispatcher) {
+	public static class HealCommand extends Command {
+		public void register(CommandDispatcher<CommandSource> dispatcher) {
 			dispatcher.register(Commands.literal("health")
 					.then(Commands.argument("targets", EntityArgument.players()).executes((cmd)->{
 						return heal(cmd.getSource(), 20, EntityArgument.getPlayers(cmd, "targets"));
@@ -30,8 +30,8 @@ public class PlayerHealCommands {
 			return 1;
 		}
 	}
-	public static class SaturateCommand {
-		public static void register(CommandDispatcher<CommandSource> dispatcher) {
+	public static class SaturateCommand extends Command {
+		public void register(CommandDispatcher<CommandSource> dispatcher) {
 			dispatcher.register(Commands.literal("saturation")
 					.then(Commands.argument("targets", EntityArgument.players()).executes((cmd)->{
 						return heal(cmd.getSource(), 20, EntityArgument.getPlayers(cmd, "targets"));
@@ -48,8 +48,8 @@ public class PlayerHealCommands {
 		}
 	}
 	
-	public static class HungerCommand {
-		public static void register(CommandDispatcher<CommandSource> dispatcher) {
+	public static class HungerCommand extends Command {
+		public void register(CommandDispatcher<CommandSource> dispatcher) {
 			dispatcher.register(Commands.literal("hunger")
 					.then(Commands.argument("targets", EntityArgument.players()).executes((cmd)->{
 						return heal(cmd.getSource(), 20, EntityArgument.getPlayers(cmd, "targets"));

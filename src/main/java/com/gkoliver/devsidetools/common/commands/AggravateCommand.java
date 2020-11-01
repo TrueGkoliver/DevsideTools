@@ -13,8 +13,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.text.TranslationTextComponent;
 
-public class AggravateCommand {
-	public static void register(CommandDispatcher<CommandSource> dispatcher) {
+public class AggravateCommand extends Command {
+	public void register(CommandDispatcher<CommandSource> dispatcher) {
 		dispatcher.register(Commands.literal("aggravate")
 				.then(Commands.argument("aggressor", EntityArgument.entities())
 				.then(Commands.argument("aggression", EntityArgument.entity()).executes((context)->{

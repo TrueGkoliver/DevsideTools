@@ -23,8 +23,8 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class PotionCommands {
-	public static class PotionCommand {
-		public static void register(CommandDispatcher<CommandSource> dispatcher) {
+	public static class PotionCommand extends Command {
+		public void register(CommandDispatcher<CommandSource> dispatcher) {
 			dispatcher.register(Commands.literal("potion").requires((p_198359_0_) -> {
 		         return p_198359_0_.hasPermissionLevel(2);
 		      }).then(Commands.argument("targets", EntityArgument.entities()).executes((ctx)->{
@@ -77,8 +77,8 @@ public class PotionCommands {
 		}
 	}
 	
-	public static class SplashPotionCommand {
-		public static void register(CommandDispatcher<CommandSource> dispatcher) {
+	public static class SplashPotionCommand extends Command {
+		public void register(CommandDispatcher<CommandSource> dispatcher) {
 			dispatcher.register(Commands.literal("splashpotion").requires((p_198359_0_) -> {
 		         return p_198359_0_.hasPermissionLevel(2);
 		      }).then(Commands.argument("targets", EntityArgument.entities()).executes((ctx)->{
@@ -131,8 +131,8 @@ public class PotionCommands {
 		}
 	}
 	
-	public static class LingeringPotionCommand {
-		public static void register(CommandDispatcher<CommandSource> dispatcher) {
+	public static class LingeringPotionCommand extends Command {
+		public void register(CommandDispatcher<CommandSource> dispatcher) {
 			dispatcher.register(Commands.literal("lingeringpotion").requires((p_198359_0_) -> {
 		         return p_198359_0_.hasPermissionLevel(2);
 		      }).then(Commands.argument("targets", EntityArgument.entities()).executes((ctx)->{

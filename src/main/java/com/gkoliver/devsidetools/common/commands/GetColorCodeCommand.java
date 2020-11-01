@@ -14,9 +14,9 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.util.text.event.HoverEvent;
 
-public class GetColorCodeCommand {
+public class GetColorCodeCommand extends Command {
 	private static final SimpleCommandExceptionType NOT_ACCURATE_EXCEPTION = new SimpleCommandExceptionType(new TranslationTextComponent("commands.getcolorcode.notaccurate"));
-	public static void register(CommandDispatcher<CommandSource> dispatcher) {
+	public void register(CommandDispatcher<CommandSource> dispatcher) {
 		dispatcher.register(Commands.literal("getcolorcode").requires(
 			(cmd)->{
 				return cmd.hasPermissionLevel(2);

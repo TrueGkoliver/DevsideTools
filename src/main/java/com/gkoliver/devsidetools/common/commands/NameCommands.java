@@ -21,8 +21,8 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public class NameCommands {
-	public static class NameRawCommands {
-		public static void register(CommandDispatcher<CommandSource> dispatcher) {
+	public static class NameRawCommands extends Command {
+		public void register(CommandDispatcher<CommandSource> dispatcher) {
 			dispatcher.register(Commands.literal("nameraw").requires((p_198820_0_) -> {
 		         return p_198820_0_.hasPermissionLevel(2);
 		      }).then(Commands.argument("targets", EntityArgument.entities()).then(Commands.argument("message", ComponentArgument.component()).executes(
@@ -45,8 +45,8 @@ public class NameCommands {
 			return 1;
 		}
 	}
-	public static class LoreRawCommands {
-		public static void register(CommandDispatcher<CommandSource> dispatcher) {
+	public static class LoreRawCommands extends Command {
+		public void register(CommandDispatcher<CommandSource> dispatcher) {
 			dispatcher.register(Commands.literal("loreraw").requires((p_198820_0_) -> {
 		         return p_198820_0_.hasPermissionLevel(2);
 		      }).then(Commands.argument("targets", EntityArgument.entities()

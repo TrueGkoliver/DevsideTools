@@ -7,8 +7,8 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.item.ItemStack;
 
-public class DeepEditorCommands {
-    public static void register(CommandDispatcher<CommandSource> dispatcher) {
+public class DeepEditorCommands extends Command {
+    public void register(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher.register(Commands.literal("opengui").requires((cmdsource) -> {
             return cmdsource.hasPermissionLevel(2);
         }).executes((context)->{

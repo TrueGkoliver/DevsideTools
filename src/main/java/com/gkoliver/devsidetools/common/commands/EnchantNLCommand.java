@@ -21,7 +21,7 @@ import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.TranslationTextComponent;
 
-public class EnchantNLCommand {
+public class EnchantNLCommand extends Command {
 		private static final DynamicCommandExceptionType NONLIVING_ENTITY_EXCEPTION = new DynamicCommandExceptionType((p_208839_0_) -> {
 	      return new TranslationTextComponent("commands.enchant.failed.entity", p_208839_0_);
 	   });
@@ -30,7 +30,7 @@ public class EnchantNLCommand {
 	   });
 	   private static final SimpleCommandExceptionType FAILED_EXCEPTION = new SimpleCommandExceptionType(new TranslationTextComponent("commands.enchant.failed"));
 
-	   public static void register(CommandDispatcher<CommandSource> dispatcher) {
+	   public void register(CommandDispatcher<CommandSource> dispatcher) {
 	      dispatcher.register(Commands.literal("enchantur").requires((cmdsource) -> {
 	         return cmdsource.hasPermissionLevel(2);
 	      }).then(Commands.argument("targets", EntityArgument.entities()).then(Commands.argument("enchantment", EnchantmentArgument.enchantment()).executes((cmdsource) -> {

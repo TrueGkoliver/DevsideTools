@@ -18,10 +18,10 @@ import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.text.TranslationTextComponent;
 
-public class EndlessEffectCommand {
+public class EndlessEffectCommand extends Command {
 	//Comment
 	private static final SimpleCommandExceptionType GIVE_FAILED_EXCEPTION = new SimpleCommandExceptionType(new TranslationTextComponent("commands.effect.give.failed"));
-    public static void register(CommandDispatcher<CommandSource> dispatcher) {
+    public void register(CommandDispatcher<CommandSource> dispatcher) {
 	      dispatcher.register(Commands.literal("effectinfinity").requires((p_198359_0_) -> {
 	         return p_198359_0_.hasPermissionLevel(2);
 	      }).then(Commands.argument("targets", EntityArgument.entities()).executes((context)->{

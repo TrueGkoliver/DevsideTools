@@ -13,8 +13,8 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TranslationTextComponent;
 
-public class SetCountCommand {
-	public static void register(CommandDispatcher<CommandSource> dispatcher) {
+public class SetCountCommand extends Command {
+	public void register(CommandDispatcher<CommandSource> dispatcher) {
 		dispatcher.register(Commands.literal("setcount").requires((cmdsource)->{
 			return cmdsource.hasPermissionLevel(2);
 		}).then(Commands.argument("targets", EntityArgument.entities()).executes((cmd)->{

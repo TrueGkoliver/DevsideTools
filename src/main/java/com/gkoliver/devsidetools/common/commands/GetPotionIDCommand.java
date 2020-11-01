@@ -9,8 +9,8 @@ import net.minecraft.potion.Effect;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
-public class GetPotionIDCommand {
-	public static void register(CommandDispatcher<CommandSource> dispatcher) {
+public class GetPotionIDCommand extends Command {
+	public void register(CommandDispatcher<CommandSource> dispatcher) {
 		dispatcher.register(Commands.literal("geteffectid").requires((cmd) -> {
 			System.out.println("FIRING THE WHATEVER");
 	         return cmd.hasPermissionLevel(2);

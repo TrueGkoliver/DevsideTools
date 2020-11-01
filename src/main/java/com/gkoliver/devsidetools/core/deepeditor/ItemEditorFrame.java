@@ -137,10 +137,10 @@ public class ItemEditorFrame extends Frame {
         });
         REMOVE_BUTTON.setMaximumSize(new Dimension(max_x/4, max_y));
         CONTAINER_LIST.addItemListener((ctx)->{
+            new_container = bundles.get(getEnchantIdentification()).getContainer();
             if (new_container!=null) {
                 this.remove(new_container);
             }
-            new_container = bundles.get(getEnchantIdentification()).getContainer();
             System.out.println(new_container);
             add(new_container);
         });

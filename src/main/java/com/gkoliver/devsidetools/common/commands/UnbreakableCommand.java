@@ -15,11 +15,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.TranslationTextComponent;
 
-public class UnbreakableCommand {
+public class UnbreakableCommand extends Command {
 	private static final DynamicCommandExceptionType NO_ITEM = new DynamicCommandExceptionType((entity) -> {
 	      return new TranslationTextComponent("commands.unbreakable.failed.noitem", entity);
 	});
-	public static void register(CommandDispatcher<CommandSource> dispatcher) {
+	public void register(CommandDispatcher<CommandSource> dispatcher) {
 		dispatcher.register(Commands.literal("unbreakable").requires((cmdsource) -> {
 	         return cmdsource.hasPermissionLevel(2);
 	    }).then(Commands.argument("targets", EntityArgument.entities()).executes((cmdsource)->{
