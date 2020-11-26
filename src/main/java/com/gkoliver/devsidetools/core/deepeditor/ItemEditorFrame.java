@@ -2,13 +2,17 @@ package com.gkoliver.devsidetools.core.deepeditor;
 
 import com.gkoliver.devsidetools.DevsideTools;
 import com.gkoliver.devsidetools.common.network.SetItemStackPacket;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -67,7 +71,31 @@ public class ItemEditorFrame extends Frame {
             EnchantmentBundle bundleIn = new EnchantmentBundle(ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(id)), amplifier);
             bundles.add(bundleIn);
         });
+        refreshListStates();
         this.setVisible(true);
+    }
+    public void refreshListStates() {
+        for (int i = 0; i < CONTAINER_LIST.getItemCount(); i++) {
+            CONTAINER_LIST.remove(0);
+        }
+        bundles.forEach((bundleIn)->{
+            TranslationTextComponent name = new TranslationTextComponent(bundleIn.enchant.getName());
+            CONTAINER_LIST.add(name.getString()+" "+String.valueOf(bundleIn.amplifier));
+        });
+    }
+    public void setEnchantments(ItemStack stackIn) {
+        stackIn.getOrCreateTag();
+        if (!stackIn.getTag().contains("Enchantments", 9)) {
+            stackIn.getTag().put("Enchantments", new ListNBT());
+        }
+
+        ListNBT listnbt = stackIn.getTag().getList("Enchantments", 10);
+        for (EnchantmentBundle bundleIn : bundles) {
+            CompoundNBT compoundnbt = new CompoundNBT();
+            compoundnbt.putString("id", String.valueOf((Object) Registry.ENCHANTMENT.getKey(bundleIn.enchant)));
+            compoundnbt.putShort("lvl", (short) bundleIn.amplifier);
+            listnbt.add(compoundnbt);
+        }
     }
     public void serializeStack() {
         boolean unbreakable = UNBREAKABLE.getState();
@@ -82,7 +110,9 @@ public class ItemEditorFrame extends Frame {
             CompoundNBT editable = stack.getTag();
             editable.putBoolean("Unbreakable", unbreakable);
             stack.setTag(editable);
+            setEnchantments(stack);
             System.out.println(stack);
+            container.inventorySlots.get(slotId).putStack(stack);
             DevsideTools.handler.sendToServer(new SetItemStackPacket(player.getUniqueID(), slotId, stack));
         } else {
             ItemStack stackToReplace = new ItemStack(ForgeRegistries.ITEMS.getValue(id));
@@ -93,8 +123,10 @@ public class ItemEditorFrame extends Frame {
             stackToReplace.setTag(editable);
             System.out.println(stackToReplace);
             System.out.println(slotId);
+            setEnchantments(stack);
             container.inventorySlots.get(slotId).putStack(stackToReplace);
             System.out.println(stack);
+
             DevsideTools.handler.sendToServer(new SetItemStackPacket(player.getUniqueID(), slotId, stackToReplace));
 
 
@@ -107,7 +139,7 @@ public class ItemEditorFrame extends Frame {
         return CONTAINER_LIST.getSelectedIndex();
     }
     static int max_x = 256;
-    static int max_y = 36/2;
+    static int max_y = (36*2)/2;
     public void setup() {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(UNBREAKABLE);
@@ -129,7 +161,8 @@ public class ItemEditorFrame extends Frame {
         ADD_BUTTON.addActionListener((ctx)->{
             EnchantmentBundle bundleIn = new EnchantmentBundle(Enchantments.SHARPNESS, 1);
             bundles.add(bundleIn);
-            CONTAINER_LIST.add(String.valueOf(bundles.size()+1));
+            TranslationTextComponent name = new TranslationTextComponent(bundleIn.enchant.getName());
+            CONTAINER_LIST.add(name.getString()+" "+String.valueOf(bundleIn.amplifier));
         });
         ADD_BUTTON.setMaximumSize(new Dimension(max_x/4, max_y));
         REMOVE_BUTTON.addActionListener((ctx)->{

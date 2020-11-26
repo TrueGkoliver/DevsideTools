@@ -97,5 +97,6 @@ public class DevsideTools
 		PlayerHealCommands.SaturateCommand.register(event.getDispatcher());
 		GetColorCodeCommand.register(event.getDispatcher());
 		//DeepEditorCommands.register(event.getDispatcher());*/
+		for (Command commandIn : commands) {commandIn.register(event.getDispatcher());}
    	}
 }
