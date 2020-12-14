@@ -43,7 +43,7 @@ public class DevsideTools
 	public static final String MODID = "devsidetools";
     private static final Logger LOGGER = LogManager.getLogger();
     public static boolean swampExpansion = false;
-    public static SimpleChannel handler = NetworkRegistry.newSimpleChannel(new ResourceLocation(MODID, "deep_editor_handler"), ()->"1.16.1", predicate -> true, predicate->true);
+    public static SimpleChannel handler = NetworkRegistry.newSimpleChannel(new ResourceLocation(MODID, "deep_editor_handler"), ()->"1.16.4", predicate -> true, predicate->true);
     public DevsideTools() {
     	IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
     	if (ModList.get().isLoaded("swampexpansion")) {
