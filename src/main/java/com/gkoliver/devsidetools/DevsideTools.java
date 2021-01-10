@@ -45,6 +45,8 @@ public class DevsideTools
     public static boolean swampExpansion = false;
     public static SimpleChannel handler = NetworkRegistry.newSimpleChannel(new ResourceLocation(MODID, "deep_editor_handler"), ()->"1.16.1", predicate -> true, predicate->true);
     public DevsideTools() {
+    	String commandTest = "hello this is a test bruh";
+    	System.out.println(Command.stripCommand(commandTest, 3));
     	IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
     	if (ModList.get().isLoaded("swampexpansion")) {
     		this.swampExpansion = true;
@@ -58,7 +60,7 @@ public class DevsideTools
     }
     public void makeCommands() {
 		new AggravateCommand();
-		new DeepEditorCommands();
+		//new DeepEditorCommands();
 		new EnchantNLCommand();
 		new EndlessEffectCommand();
 		new GetColorCodeCommand();

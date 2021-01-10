@@ -22,13 +22,13 @@ public class GetPotionIDCommand extends Command {
 	}
 	
 	private static int addEffect(CommandSource source, Effect effect) throws CommandSyntaxException {
-	      int i = 1;
-	      int id = Effect.getId(effect);
-	      System.out.println(id);
-	      source.sendFeedback(new TranslationTextComponent("commands.getid.isPotion").func_230529_a_(effect.getDisplayName()).func_230529_a_(new TranslationTextComponent("commands.getid.is")).func_230529_a_(new StringTextComponent(String.valueOf(id))), true);
-	      
-	      return i;
-	      
-	   }
+	  int i = 1;
+	  int id = Effect.getId(effect);
+	  System.out.println(id);
+	  source.sendFeedback(new TranslationTextComponent("commands.getid.isPotion").func_230529_a_(effect.getDisplayName()).func_230529_a_(new TranslationTextComponent("commands.getid.is")).func_230529_a_(new StringTextComponent(String.valueOf(id))), true);
+
+	  return i;
+
+   }
 
 }
