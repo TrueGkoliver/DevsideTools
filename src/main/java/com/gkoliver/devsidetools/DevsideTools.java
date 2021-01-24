@@ -75,6 +75,7 @@ public class DevsideTools
 		new PotionCommands.LingeringPotionCommand();
 		new SetCountCommand();
 		new UnbreakableCommand();
+		new ForceSpawnCommand();
 	}
     public void setup(final FMLCommonSetupEvent event)
     {
