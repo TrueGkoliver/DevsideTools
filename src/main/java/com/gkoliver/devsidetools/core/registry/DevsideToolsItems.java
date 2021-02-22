@@ -11,6 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.Item.Properties;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -26,7 +27,22 @@ public class DevsideToolsItems {
 		else {
 			return null;
 		}
-		
+	}
+	public static RegistryObject<ItemNBTSpawnEgg> genVillager(String type, String name, int colorBase, int colorSide, String modname) {
+		if (modname!=null) {
+			if (!ModList.get().isLoaded("modname")) return null;
+		} else {
+			CompoundNBT nbtTag = new CompoundNBT();
+			CompoundNBT villager = new CompoundNBT();
+			villager.putString("type", type);
+			nbtTag.put("VillagerData", villager);
+			RegistryObject<ItemNBTSpawnEgg> tbr = ITEMS.register("villager_spawn_egg_"+name, ()->new ItemNBTSpawnEgg(EntityType.VILLAGER, colorBase, colorSide, new Item.Properties().group(ItemGroup.SEARCH), nbtTag));
+			return tbr;
+		}
+		return null;
+	}
+	public static RegistryObject<ItemNBTSpawnEgg> genVillager(String type, String name, int colorBase, int colorSide) {
+		return genVillager(type, name, colorBase, colorSide, null);
 	}
 	public static RegistryObject<ItemNBTSpawnEgg> genCatEgg(int id, int colorbase, int colorside) {
 		CompoundNBT nbtTag = new CompoundNBT();
@@ -119,6 +135,18 @@ public class DevsideToolsItems {
 	public static final RegistryObject<ItemNBTSpawnEgg> SLABFISH_41 = genSlabEgg(41, 0x1F3947, 0x626262);
 	public static final RegistryObject<ItemNBTSpawnEgg> SLABFISH_42 = genSlabEgg(42, 0x564119, 0x282415);
 	*/
+	public static final RegistryObject<ItemNBTSpawnEgg> VILLAGER_PLAINS = genVillager("minecraft:plains", "plains", 0x73554E, 0xBF896D);
+	public static final RegistryObject<ItemNBTSpawnEgg> VILLAGER_DESERT = genVillager("minecraft:desert", "desert", 0xF3CF9D, 0xE36E08);
+	public static final RegistryObject<ItemNBTSpawnEgg> VILLAGER_JUNGLE = genVillager("minecraft:jungle", "jungle", 0x356517, 0xC59235);
+	public static final RegistryObject<ItemNBTSpawnEgg> VILLAGER_SAVANNA = genVillager("minecraft:savanna", "savanna", 0xAA2A2A, 0x413B0F);
+	public static final RegistryObject<ItemNBTSpawnEgg> VILLAGER_SNOWY = genVillager("minecraft:snow", "snowy", 0x5C8C81, 0xDED2B1);
+	public static final RegistryObject<ItemNBTSpawnEgg> VILLAGER_SWAMP = genVillager("minecraft:swamp", "swamp", 0x4F3A62, 0x63723B);
+	public static final RegistryObject<ItemNBTSpawnEgg> VILLAGER_TAIGA = genVillager("minecraft:taiga", "taiga", 0x1A1A1A, 0x70654D);
+
+	public static final RegistryObject<ItemNBTSpawnEgg> VILLAGER_BLOSSOM = genVillager("environmental:blossom", "blossom", 0x657C84, 0x3E4C20, "environmental");
+	public static final RegistryObject<ItemNBTSpawnEgg> VILLAGER_FOREST = genVillager("environmental:forest", "forest", 0x535B32, 0x5A3C2B, "environmental");
+	public static final RegistryObject<ItemNBTSpawnEgg> VILLAGER_FLOWER_FOREST = genVillager("environmental:flower_forest", "flower_forest", 0x716099, 0x6C4C3A, "environmental");
+	public static final RegistryObject<ItemNBTSpawnEgg> VILLAGER_ICE_SPIKES = genVillager("environmental:ice_spikes", "ice_spikes", 0x44322E, 0x92B9FE, "environmental");
 	public static void registerNBTs() {
 		BROWN_MOOSHROOM.putString("Type", "brown");
 		BROWN_PANDA.putString("MainGene", "brown");

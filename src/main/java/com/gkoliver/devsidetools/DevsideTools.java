@@ -48,7 +48,7 @@ public class DevsideTools
     	String commandTest = "hello this is a test bruh";
     	System.out.println(Command.stripCommand(commandTest, 3));
     	IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-    	if (ModList.get().isLoaded("swampexpansion")) {
+    	if (ModList.get().isLoaded("environmental")) {
     		this.swampExpansion = true;
     	}
     	DevsideToolsItems.ITEMS.register(eventBus);
