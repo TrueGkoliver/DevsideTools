@@ -8082,5 +8082,17 @@
     "enchantment.level.3995": "MMMCMXCV",
     "enchantment.level.3996": "MMMCMXCVI",
     "enchantment.level.3997": "MMMCMXCVII",
-    "enchantment.level.3998": "MMMCMXCVIII"
+    "enchantment.level.3998": "MMMCMXCVIII",
+
+    "item.devsidetools.villager_spawn_egg_plains" : "Plains Villager Spawn Egg",
+    "item.devsidetools.villager_spawn_egg_desert" : "Desert Villager Spawn Egg",
+    "item.devsidetools.villager_spawn_egg_jungle" : "Jungle Villager Spawn Egg",
+    "item.devsidetools.villager_spawn_egg_savanna" : "Savanna Villager Spawn Egg",
+    "item.devsidetools.villager_spawn_egg_snowy" : "Snow Villager Spawn Egg",
+    "item.devsidetools.villager_spawn_egg_swamp" : "Swamp Villager Spawn Egg",
+    "item.devsidetools.villager_spawn_egg_taiga" : "Taiga Villager Spawn Egg",
+    "item.devsidetools.villager_spawn_egg_blossom" : "Blossom Villager Spawn Egg",
+    "item.devsidetools.villager_spawn_egg_forest" : "Forest Villager Spawn Egg",
+    "item.devsidetools.villager_spawn_egg_flower_forest" : "Flower Forest Villager Spawn Egg",
+    "item.devsidetools.villager_spawn_egg_ice_spikes" : "Ice Spikes Villager Spawn Egg"
 }

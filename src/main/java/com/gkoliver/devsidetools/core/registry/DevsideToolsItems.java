@@ -30,16 +30,14 @@ public class DevsideToolsItems {
 	}
 	public static RegistryObject<ItemNBTSpawnEgg> genVillager(String type, String name, int colorBase, int colorSide, String modname) {
 		if (modname!=null) {
-			if (!ModList.get().isLoaded("modname")) return null;
-		} else {
-			CompoundNBT nbtTag = new CompoundNBT();
-			CompoundNBT villager = new CompoundNBT();
-			villager.putString("type", type);
-			nbtTag.put("VillagerData", villager);
-			RegistryObject<ItemNBTSpawnEgg> tbr = ITEMS.register("villager_spawn_egg_"+name, ()->new ItemNBTSpawnEgg(EntityType.VILLAGER, colorBase, colorSide, new Item.Properties().group(ItemGroup.SEARCH), nbtTag));
-			return tbr;
+			if (!ModList.get().isLoaded(modname)) return null;
 		}
-		return null;
+		CompoundNBT nbtTag = new CompoundNBT();
+		CompoundNBT villager = new CompoundNBT();
+		villager.putString("type", type);
+		nbtTag.put("VillagerData", villager);
+		RegistryObject<ItemNBTSpawnEgg> tbr = ITEMS.register("villager_spawn_egg_"+name, ()->new ItemNBTSpawnEgg(EntityType.VILLAGER, colorBase, colorSide, new Item.Properties().group(ItemGroup.SEARCH), nbtTag));
+		return tbr;
 	}
 	public static RegistryObject<ItemNBTSpawnEgg> genVillager(String type, String name, int colorBase, int colorSide) {
 		return genVillager(type, name, colorBase, colorSide, null);
@@ -143,7 +141,7 @@ public class DevsideToolsItems {
 	public static final RegistryObject<ItemNBTSpawnEgg> VILLAGER_SWAMP = genVillager("minecraft:swamp", "swamp", 0x4F3A62, 0x63723B);
 	public static final RegistryObject<ItemNBTSpawnEgg> VILLAGER_TAIGA = genVillager("minecraft:taiga", "taiga", 0x1A1A1A, 0x70654D);
 
-	public static final RegistryObject<ItemNBTSpawnEgg> VILLAGER_BLOSSOM = genVillager("environmental:blossom", "blossom", 0x657C84, 0x3E4C20, "environmental");
+	public static final RegistryObject<ItemNBTSpawnEgg> VILLAGER_BLOSSOM = genVillager("environmental:blossom", "blossom", 0xF7ACC4, 0x535B32, "environmental");
 	public static final RegistryObject<ItemNBTSpawnEgg> VILLAGER_FOREST = genVillager("environmental:forest", "forest", 0x535B32, 0x5A3C2B, "environmental");
 	public static final RegistryObject<ItemNBTSpawnEgg> VILLAGER_FLOWER_FOREST = genVillager("environmental:flower_forest", "flower_forest", 0x716099, 0x6C4C3A, "environmental");
 	public static final RegistryObject<ItemNBTSpawnEgg> VILLAGER_ICE_SPIKES = genVillager("environmental:ice_spikes", "ice_spikes", 0x44322E, 0x92B9FE, "environmental");
