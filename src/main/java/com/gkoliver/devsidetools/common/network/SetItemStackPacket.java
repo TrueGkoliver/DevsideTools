@@ -1,12 +1,12 @@
 package com.gkoliver.devsidetools.common.network;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.Hand;
-import net.minecraftforge.fml.network.NetworkEvent;
-import org.lwjgl.system.windows.MSG;
+
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.network.NetworkEvent;
 
 import java.util.UUID;
 import java.util.function.Supplier;
@@ -20,14 +20,14 @@ public class SetItemStackPacket {
         stackSlot = stackSlotIn;
         stack = stackIn;
     }
-    public static SetItemStackPacket read(PacketBuffer buffer) {
-        UUID p1 = buffer.readUniqueId();
+    public static SetItemStackPacket read(FriendlyByteBuf buffer) {
+        UUID p1 = buffer.readUUID();
         int p2 = buffer.readInt();
-        ItemStack p3 = buffer.readItemStack();
+        ItemStack p3 = buffer.readItem();
         return new SetItemStackPacket(p1, p2, p3);
     }
-    public static void write(SetItemStackPacket message, PacketBuffer buffer) {
-        buffer.writeUniqueId(message.playerUUID);
+    public static void write(SetItemStackPacket message, FriendlyByteBuf buffer) {
+        buffer.writeUUID(message.playerUUID);
         buffer.writeInt(message.stackSlot);
         System.out.println(message.stack);
         buffer.writeItemStack(message.stack, false);
@@ -35,11 +35,11 @@ public class SetItemStackPacket {
     public static void work(SetItemStackPacket msg, Supplier<NetworkEvent.Context> context) {
         NetworkEvent.Context ctx = context.get();
         ctx.setPacketHandled(true);
-        ServerPlayerEntity sender = ctx.getSender();
-        if (!sender.hasPermissionLevel(2)) { System.out.println("Illegal access."); return; }
-        PlayerEntity entity = sender.getServerWorld().getPlayerByUuid(msg.playerUUID);
-        entity.setHeldItem(Hand.MAIN_HAND, msg.stack);
-        System.out.println(entity.getHeldItem(Hand.MAIN_HAND));
+        ServerPlayer sender = ctx.getSender();
+        if (!sender.hasPermissions(2)) { System.out.println("Illegal access."); return; }
+        Player entity = sender.getLevel().getPlayerByUUID(msg.playerUUID);
+        entity.setItemInHand(InteractionHand.MAIN_HAND, msg.stack);
+        System.out.println(entity.getItemInHand(InteractionHand.MAIN_HAND));
 
 
     }

@@ -13,6 +13,7 @@
 	"commands.saturation" : "Alted Saturation",
 	"commands.setcount" : "Altered item count",
 	"commands.aggravate" : "Aggravated entities",
+    "commands.enchantur.warning" : "The enchant level is over 255, the default maximum for vanilla. If you wish to increase it to the level you put, please install a patch.",
 	
 	"effect.devsidetools.vibecheck" : "Vibe Check",
 	"item.minecraft.potion.effect.vibecheck" : "Potion of Vibe Check",

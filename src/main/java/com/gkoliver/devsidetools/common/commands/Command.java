@@ -2,15 +2,14 @@ package com.gkoliver.devsidetools.common.commands;
 
 import com.gkoliver.devsidetools.DevsideTools;
 import com.mojang.brigadier.CommandDispatcher;
-import net.minecraft.command.CommandSource;
+import net.minecraft.commands.CommandSourceStack;
 
 public abstract class Command {
     public Command() {
         DevsideTools.commands.add(this);
     }
-    public abstract void register(CommandDispatcher<CommandSource> dispatcher);
+    public abstract void register(CommandDispatcher<CommandSourceStack> dispatcher);
     public static String stripCommandContent(String commandName, String cmd) {
-        commandName.length();
         String realCmd = cmd.substring(commandName.length()-1, cmd.length()-1);
         return realCmd;
     }

@@ -3,9 +3,7 @@ package com.gkoliver.devsidetools;
 import com.gkoliver.devsidetools.common.commands.*;
 import com.gkoliver.devsidetools.common.network.SetItemStackPacket;
 import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
@@ -21,10 +19,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModEnqueueEvent;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.network.NetworkRegistry;
-import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.simple.SimpleChannel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -45,8 +42,6 @@ public class DevsideTools
     public static boolean swampExpansion = false;
     public static SimpleChannel handler = NetworkRegistry.newSimpleChannel(new ResourceLocation(MODID, "deep_editor_handler"), ()->"1.16.4", predicate -> true, predicate->true);
     public DevsideTools() {
-    	String commandTest = "hello this is a test bruh";
-    	System.out.println(Command.stripCommand(commandTest, 3));
     	IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
     	if (ModList.get().isLoaded("environmental")) {
     		this.swampExpansion = true;

@@ -8,44 +8,45 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
-import net.minecraft.command.arguments.EntityArgument;
-import net.minecraft.command.arguments.PotionArgument;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.util.text.TranslationTextComponent;
+
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.commands.arguments.MobEffectArgument;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 
 public class EndlessEffectCommand extends Command {
 	//Comment
-	private static final SimpleCommandExceptionType GIVE_FAILED_EXCEPTION = new SimpleCommandExceptionType(new TranslationTextComponent("commands.effect.give.failed"));
-    public void register(CommandDispatcher<CommandSource> dispatcher) {
+	private static final SimpleCommandExceptionType GIVE_FAILED_EXCEPTION = new SimpleCommandExceptionType(new TranslatableComponent("commands.effect.give.failed"));
+    public void register(CommandDispatcher<CommandSourceStack> dispatcher) {
 	      dispatcher.register(Commands.literal("effectinfinity").requires((p_198359_0_) -> {
-	         return p_198359_0_.hasPermissionLevel(2);
+	         return p_198359_0_.hasPermission(2);
 	      }).then(Commands.argument("targets", EntityArgument.entities()).executes((context)->{
-	    	  return addEffect(context.getSource(), EntityArgument.getEntities(context, "targets"), PotionArgument.getMobEffect(context, "effect"), IntegerArgumentType.getInteger(context, "amplifier"), true);
-	      }).then(Commands.argument("effect", PotionArgument.mobEffect()).executes((cmd) -> {
-	    	  return addEffect(cmd.getSource(), EntityArgument.getEntities(cmd, "targets"), PotionArgument.getMobEffect(cmd, "effect"), 0, true);
+	    	  return addEffect(context.getSource(), EntityArgument.getEntities(context, "targets"), MobEffectArgument.getEffect(context, "effect"), IntegerArgumentType.getInteger(context, "amplifier"), true);
+	      }).then(Commands.argument("effect", MobEffectArgument.effect()).executes((cmd) -> {
+	    	  return addEffect(cmd.getSource(), EntityArgument.getEntities(cmd, "targets"), MobEffectArgument.getEffect(cmd, "effect"), 0, true);
 	      }).then(Commands.argument("amplifier", IntegerArgumentType.integer(0, 255)).executes((p_198358_0_) -> {
-	    	  return addEffect(p_198358_0_.getSource(), EntityArgument.getEntities(p_198358_0_, "targets"), PotionArgument.getMobEffect(p_198358_0_, "effect"), IntegerArgumentType.getInteger(p_198358_0_, "amplifier"), true);
+	    	  return addEffect(p_198358_0_.getSource(), EntityArgument.getEntities(p_198358_0_, "targets"), MobEffectArgument.getEffect(p_198358_0_, "effect"), IntegerArgumentType.getInteger(p_198358_0_, "amplifier"), true);
 	      }).then(Commands.argument("hideParticles", BoolArgumentType.bool()).executes((p_229759_0_) -> {
-	         return addEffect(p_229759_0_.getSource(), EntityArgument.getEntities(p_229759_0_, "targets"), PotionArgument.getMobEffect(p_229759_0_, "effect"), IntegerArgumentType.getInteger(p_229759_0_, "amplifier"), !BoolArgumentType.getBool(p_229759_0_, "hideParticles"));
+	         return addEffect(p_229759_0_.getSource(), EntityArgument.getEntities(p_229759_0_, "targets"), MobEffectArgument.getEffect(p_229759_0_, "effect"), IntegerArgumentType.getInteger(p_229759_0_, "amplifier"), !BoolArgumentType.getBool(p_229759_0_, "hideParticles"));
 	      }))))));
 	   }
 	
-	private static int addEffect(CommandSource source, Collection<? extends Entity> targets, Effect effect, int amplifier, boolean showParticles) throws CommandSyntaxException {
+	private static int addEffect(CommandSourceStack source, Collection<? extends Entity> targets, MobEffect effect, int amplifier, boolean showParticles) throws CommandSyntaxException {
 	      int i = 0;
 	      int j;
 	      int seconds = 1000000;
 	      if (seconds != 0) {
-	         if (effect.isInstant()) {
+	         if (effect.isInstantenous()) {
 	            j = seconds;
 	         } else {
 	            j = seconds * 20;
 	         }
-	      } else if (effect.isInstant()) {
+	      } else if (effect.isInstantenous()) {
 	         j = 1;
 	      } else {
 	         j = 600;
@@ -53,8 +54,8 @@ public class EndlessEffectCommand extends Command {
 
 	      for(Entity entity : targets) {
 	         if (entity instanceof LivingEntity) {
-	            EffectInstance effectinstance = new EffectInstance(effect, j, amplifier, false, showParticles);
-	            if (((LivingEntity)entity).addPotionEffect(effectinstance)) {
+	            MobEffectInstance effectinstance = new MobEffectInstance(effect, j, amplifier, false, showParticles);
+	            if (((LivingEntity)entity).addEffect(effectinstance)) {
 	               ++i;
 	            }
 	         }
@@ -64,9 +65,9 @@ public class EndlessEffectCommand extends Command {
 	         throw GIVE_FAILED_EXCEPTION.create();
 	      } else {
 	         if (targets.size() == 1) {
-	            source.sendFeedback(new TranslationTextComponent("commands.effect.give.success.single", effect.getDisplayName(), targets.iterator().next().getDisplayName(), j / 20), true);
+	            source.sendSuccess(new TranslatableComponent("commands.effect.give.success.single", effect.getDisplayName(), targets.iterator().next().getDisplayName(), j / 20), true);
 	         } else {
-	            source.sendFeedback(new TranslationTextComponent("commands.effect.give.success.multiple", effect.getDisplayName(), targets.size(), j / 20), true);
+	            source.sendSuccess(new TranslatableComponent("commands.effect.give.success.multiple", effect.getDisplayName(), targets.size(), j / 20), true);
 	         }
 
 	         return i;

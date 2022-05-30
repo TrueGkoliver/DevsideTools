@@ -4,29 +4,28 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
+import net.minecraft.ChatFormatting;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.HoverEvent;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 
-import net.minecraft.command.CommandException;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.util.text.event.ClickEvent;
-import net.minecraft.util.text.event.HoverEvent;
 
 public class GetColorCodeCommand extends Command {
-	private static final SimpleCommandExceptionType NOT_ACCURATE_EXCEPTION = new SimpleCommandExceptionType(new TranslationTextComponent("commands.getcolorcode.notaccurate"));
-	public void register(CommandDispatcher<CommandSource> dispatcher) {
+	private static final SimpleCommandExceptionType NOT_ACCURATE_EXCEPTION = new SimpleCommandExceptionType(new TranslatableComponent("commands.getcolorcode.notaccurate"));
+	public void register(CommandDispatcher<CommandSourceStack> dispatcher) {
 		dispatcher.register(Commands.literal("getcolorcode").requires(
 			(cmd)->{
-				return cmd.hasPermissionLevel(2);
+				return cmd.hasPermission(2);
 			}).then(Commands.argument("hex", StringArgumentType.string()).executes((cmd)->{
 				return getColorCode(cmd.getSource(), StringArgumentType.getString(cmd, "hex"));
 			}))
 				
 		);
 	}
-	public static int getColorCode(CommandSource source, String hex) throws CommandSyntaxException{
+	public static int getColorCode(CommandSourceStack source, String hex) throws CommandSyntaxException{
 		if (hex.length()!=6) {
 			throw NOT_ACCURATE_EXCEPTION.create();
 		} else {
@@ -40,11 +39,11 @@ public class GetColorCodeCommand extends Command {
 			colorcode += pt2<<8;
 			colorcode += pt3;
 			final String colorCode = String.valueOf(colorcode);
-			source.sendFeedback(new TranslationTextComponent("commands.getcolorcode.hexer").func_230529_a_(new StringTextComponent(hex)).func_230529_a_(new TranslationTextComponent("commands.getid.is")).func_230529_a_(new StringTextComponent(String.valueOf(colorcode)).func_240700_a_((style)->{
+			source.sendSuccess(new TranslatableComponent("commands.getcolorcode.hexer").append(new TextComponent(hex)).append(new TranslatableComponent("commands.getid.is")).append(new TextComponent(String.valueOf(colorcode)).withStyle((style)->{
 				return style
-						.func_240712_a_(TextFormatting.GREEN)
-						.func_240716_a_(new HoverEvent(HoverEvent.Action.field_230550_a_, new TranslationTextComponent("chat.copy.click")))
-						.func_240715_a_(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, colorCode)
+						.withColor(ChatFormatting.GREEN)
+						.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslatableComponent("chat.copy.click")))
+						.withClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, colorCode)
 						
 								
 				);

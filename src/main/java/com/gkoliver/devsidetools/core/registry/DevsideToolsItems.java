@@ -6,21 +6,20 @@ import java.util.HashMap;
 import com.gkoliver.devsidetools.DevsideTools;
 import com.gkoliver.devsidetools.common.item.ItemNBTSpawnEgg;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.Item.Properties;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class DevsideToolsItems {
-	public static RegistryObject<ItemNBTSpawnEgg> genSlabEgg(int id, int colorbase, int colorsides) {
+	public static RegistryObject<ItemNBTSpawnEgg> genSlabEgg(String id, int colorbase, int colorsides) {
 		if (DevsideTools.swampExpansion) {
-			CompoundNBT nbtTag = SLC.get(id);
-			RegistryObject<ItemNBTSpawnEgg> tbr = ITEMS.register("slabfish_spawn_egg_"+Integer.toString(id), ()->new ItemNBTSpawnEgg(colorbase, colorsides, new Item.Properties().group(ItemGroup.SEARCH), nbtTag));
+			CompoundTag nbtTag = SLC.get(id);
+			RegistryObject<ItemNBTSpawnEgg> tbr = ITEMS.register("slabfish_spawn_egg_"+id, ()->new ItemNBTSpawnEgg(colorbase, colorsides, new Item.Properties().tab(CreativeModeTab.TAB_SEARCH), nbtTag));
 			SLABFISH_EGGS.add(tbr);
 			return tbr;
 		}
@@ -32,20 +31,20 @@ public class DevsideToolsItems {
 		if (modname!=null) {
 			if (!ModList.get().isLoaded(modname)) return null;
 		}
-		CompoundNBT nbtTag = new CompoundNBT();
-		CompoundNBT villager = new CompoundNBT();
+		CompoundTag nbtTag = new CompoundTag();
+		CompoundTag villager = new CompoundTag();
 		villager.putString("type", type);
 		nbtTag.put("VillagerData", villager);
-		RegistryObject<ItemNBTSpawnEgg> tbr = ITEMS.register("villager_spawn_egg_"+name, ()->new ItemNBTSpawnEgg(EntityType.VILLAGER, colorBase, colorSide, new Item.Properties().group(ItemGroup.SEARCH), nbtTag));
+		RegistryObject<ItemNBTSpawnEgg> tbr = ITEMS.register("villager_spawn_egg_"+name, ()->new ItemNBTSpawnEgg(EntityType.VILLAGER, colorBase, colorSide, new Item.Properties().tab(CreativeModeTab.TAB_SEARCH), nbtTag));
 		return tbr;
 	}
 	public static RegistryObject<ItemNBTSpawnEgg> genVillager(String type, String name, int colorBase, int colorSide) {
 		return genVillager(type, name, colorBase, colorSide, null);
 	}
 	public static RegistryObject<ItemNBTSpawnEgg> genCatEgg(int id, int colorbase, int colorside) {
-		CompoundNBT nbtTag = new CompoundNBT();
+		CompoundTag nbtTag = new CompoundTag();
 		nbtTag.putInt("CatType", id);
-		RegistryObject<ItemNBTSpawnEgg> tbr = ITEMS.register("cat_spawn_egg_"+Integer.toString(id), ()->new ItemNBTSpawnEgg(EntityType.CAT, colorbase, colorside, new Item.Properties().group(ItemGroup.SEARCH), nbtTag));
+		RegistryObject<ItemNBTSpawnEgg> tbr = ITEMS.register("cat_spawn_egg_"+Integer.toString(id), ()->new ItemNBTSpawnEgg(EntityType.CAT, colorbase, colorside, new Item.Properties().tab(CreativeModeTab.TAB_SEARCH), nbtTag));
 		return tbr;
 	}
 	
@@ -53,11 +52,11 @@ public class DevsideToolsItems {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, DevsideTools.MODID);
 	
 	
-	public static final CompoundNBT BROWN_PANDA = new CompoundNBT();
-	public static final CompoundNBT BROWN_MOOSHROOM = new CompoundNBT();
-	public static final CompoundNBT ARCTIC_FOX = new CompoundNBT();
+	public static final CompoundTag BROWN_PANDA = new CompoundTag();
+	public static final CompoundTag BROWN_MOOSHROOM = new CompoundTag();
+	public static final CompoundTag ARCTIC_FOX = new CompoundTag();
 	
-	public static final HashMap<Integer, CompoundNBT> SLC = new HashMap<Integer,CompoundNBT>();
+	public static final HashMap<Integer, CompoundTag> SLC = new HashMap<Integer,CompoundTag>();
 	static {
 		registerNBTs();
 	}
@@ -80,14 +79,15 @@ public class DevsideToolsItems {
 	
 	
 	
-	public static final Item.Properties SPAWN_EGG_PROPS = new Item.Properties().group(ItemGroup.SEARCH); 
-	public static final RegistryObject<Item> BROWN_MOOSHROOM_SPAWN_EGG = ITEMS.register("brown_mooshroom_spawn_egg", ()->new ItemNBTSpawnEgg(EntityType.MOOSHROOM, 0x6C5148, 0x4B362C, new Item.Properties().group(ItemGroup.SEARCH), BROWN_MOOSHROOM));
-	public static final RegistryObject<Item> BROWN_PANDA_SPAWN_EGG = ITEMS.register("brown_panda_spawn_egg", ()->new ItemNBTSpawnEgg(EntityType.PANDA, 0xA5A5A4, 0x523D30, new Item.Properties().group(ItemGroup.SEARCH), BROWN_PANDA));
+	public static final Item.Properties SPAWN_EGG_PROPS = new Item.Properties().tab(CreativeModeTab.TAB_SEARCH);
+	public static final RegistryObject<Item> BROWN_MOOSHROOM_SPAWN_EGG = ITEMS.register("brown_mooshroom_spawn_egg", ()->new ItemNBTSpawnEgg(EntityType.MOOSHROOM, 0x6C5148, 0x4B362C, new Item.Properties().tab(CreativeModeTab.TAB_SEARCH), BROWN_MOOSHROOM));
+	public static final RegistryObject<Item> BROWN_PANDA_SPAWN_EGG = ITEMS.register("brown_panda_spawn_egg", ()->new ItemNBTSpawnEgg(EntityType.PANDA, 0xA5A5A4, 0x523D30, new Item.Properties().tab(CreativeModeTab.TAB_SEARCH), BROWN_PANDA));
 	public static final RegistryObject<Item> ARCTIC_FOX_SPAWN_EGG = ITEMS.register("arctic_fox_spawn_egg", ()->new ItemNBTSpawnEgg(EntityType.FOX, 0xFEFDF6, 0xA2BDB7, SPAWN_EGG_PROPS, ARCTIC_FOX));
 	
+	//Environmental Slabfish
+
 	
-	
-	
+
 
 
 	public static final RegistryObject<ItemNBTSpawnEgg> VILLAGER_PLAINS = genVillager("minecraft:plains", "plains", 0x73554E, 0xBF896D);
@@ -109,7 +109,7 @@ public class DevsideToolsItems {
 		ARCTIC_FOX.putString("Type", "snow");
 		for (int i=0; i<43; i++) {
 			System.out.println(i);
-			CompoundNBT compound = new CompoundNBT();
+			CompoundTag compound = new CompoundTag();
 			compound.putInt("SlabfishType", i);
 			SLC.put(i, compound);
 		} 

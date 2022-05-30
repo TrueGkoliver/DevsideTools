@@ -6,15 +6,17 @@ import java.util.Set;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
-import net.minecraft.command.arguments.EntityArgument;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.text.TranslationTextComponent;
+
+import net.minecraft.commands.CommandSource;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 
 public class AggravateCommand extends Command {
-	public void register(CommandDispatcher<CommandSource> dispatcher) {
+	public void register(CommandDispatcher<CommandSourceStack> dispatcher) {
 		dispatcher.register(Commands.literal("aggravate")
 				.then(Commands.argument("aggressor", EntityArgument.entities())
 				.then(Commands.argument("aggression", EntityArgument.entity()).executes((context)->{
@@ -24,15 +26,15 @@ public class AggravateCommand extends Command {
 				})))
 		));
 	}
-	public static int aggravate(CommandSource source, Collection<? extends Entity> aggressor, Entity aggression, boolean doBoth) {
+	public static int aggravate(CommandSourceStack source, Collection<? extends Entity> aggressor, Entity aggression, boolean doBoth) {
 		if (aggression instanceof LivingEntity) {
 			for (Entity entity : aggressor) {
 				if (entity instanceof LivingEntity) {
 					LivingEntity livingAggressor = (LivingEntity)entity;
 					LivingEntity livingVictim = (LivingEntity)aggression;
-					livingAggressor.setRevengeTarget(livingVictim);
+					livingAggressor.setLastHurtByMob(livingVictim);
 					if (doBoth) {
-						livingVictim.setRevengeTarget(livingAggressor);
+						livingVictim.setLastHurtByMob(livingAggressor);
 					}
 					
 				}
@@ -43,7 +45,7 @@ public class AggravateCommand extends Command {
 			//if (doBoth) {
 			//	aggression1.setRevengeTarget(aggressor1);
 			//}
-			source.sendFeedback(new TranslationTextComponent("commands.aggravate"), true);
+			source.sendSuccess(new TranslatableComponent("commands.aggravate"), true);
 			
 		}
 		return 1;

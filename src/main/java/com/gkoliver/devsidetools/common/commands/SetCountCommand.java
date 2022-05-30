@@ -4,19 +4,19 @@ import java.util.Collection;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
-import net.minecraft.command.arguments.EntityArgument;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TranslationTextComponent;
 
 public class SetCountCommand extends Command {
-	public void register(CommandDispatcher<CommandSource> dispatcher) {
+	public void register(CommandDispatcher<CommandSourceStack> dispatcher) {
 		dispatcher.register(Commands.literal("setcount").requires((cmdsource)->{
-			return cmdsource.hasPermissionLevel(2);
+			return cmdsource.hasPermission(2);
 		}).then(Commands.argument("targets", EntityArgument.entities()).executes((cmd)->{
 			return 1;
 		})
@@ -26,13 +26,13 @@ public class SetCountCommand extends Command {
 	}
 	
 	
-	public static int setCount(CommandSource source, Collection<? extends Entity> targets, int count) {
+	public static int setCount(CommandSourceStack source, Collection<? extends Entity> targets, int count) {
 		for (Entity target : targets) {
 			if (target instanceof LivingEntity) {
 				LivingEntity living = (LivingEntity) target;
-				ItemStack stack = living.getHeldItemMainhand();
+				ItemStack stack = living.getMainHandItem();
 				stack.setCount(count);
-				source.sendFeedback(new TranslationTextComponent("commands.setcount"), true);
+				source.sendSuccess(new TranslatableComponent("commands.setcount"), true);
 				
 			}
 		}

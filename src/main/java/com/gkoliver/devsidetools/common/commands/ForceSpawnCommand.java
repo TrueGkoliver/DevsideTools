@@ -2,18 +2,16 @@ package com.gkoliver.devsidetools.common.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
-import net.minecraft.command.arguments.EntityArgument;
-import net.minecraft.command.arguments.PotionArgument;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 
 import java.util.Collection;
 import java.util.Random;
@@ -22,23 +20,24 @@ import java.util.Set;
 public class ForceSpawnCommand extends Command {
     private static Random RAND = new Random();
     @Override
-    public void register(CommandDispatcher<CommandSource> dispatcher) {
+    public void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         dispatcher.register(Commands.literal("forcespawn").requires((p_198359_0_) -> {
-            return p_198359_0_.hasPermissionLevel(2);
+            return p_198359_0_.hasPermission(2);
         }).then(Commands.argument("targets", EntityArgument.entity()).executes((context)->{
             return forceSpawn(context.getSource(), EntityArgument.getEntity(context, "targets"));
         })));
     }
     private static final int const_radius = 128;
-    public static int forceSpawn(CommandSource source, Entity target) {
+    public static int forceSpawn(CommandSourceStack source, Entity target) {
         System.out.println("Firing ForceSpawn");
-        BlockPos position = new BlockPos(target.getPosX(), target.getPosY(), target.getPosZ());
-        forceOneSpawn(1, target.getEntityWorld(), position, source);
+        BlockPos position = new BlockPos(target.getX(), target.getY(), target.getZ());
+        forceOneSpawn(1, target.getLevel(), position, source);
         return 1;
     }
-    public static void forceOneSpawn(int amt, World worldIn, BlockPos posIn, CommandSource source) {
-        Biome biomeIn = worldIn.getBiome(posIn);
-        MobSpawnInfo info = biomeIn.func_242433_b();
+    public static void forceOneSpawn(int amt, Level worldIn, BlockPos posIn, CommandSourceStack source) {
+        Biome biomeIn = worldIn.getBiomeManager().m_204214_(posIn).m_203334_();
+
+        MobSpawnSettings info = biomeIn.getMobSettings();
         Set<EntityType<?>> entities = info.getEntityTypes();
         System.out.println(entities);
         for (EntityType<?> entityType : entities) {
@@ -53,9 +52,9 @@ public class ForceSpawnCommand extends Command {
                 boolean flag2 = worldIn.getBlockState(spawnPos).isAir();
                 if (flag2) {
                     Entity entity = entityType.create(worldIn);
-                    entity.setPosition(x, y, z);
+                    entity.setPos(x, y, z);
                     entity.onAddedToWorld();
-                    source.sendFeedback(new StringTextComponent("Summoned a ").func_230529_a_(entity.getName()), false);
+                    source.sendSuccess(new TextComponent("Summoned a ").append(entity.getName()), false);
                     flag = true;
                 }
 
